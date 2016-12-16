@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        写在最前面｜Annie&#39;s blog
+        H5-Animation-canvas百分比加载｜Annie&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="https://aiyuzhou.github.io/2016/12/15/写在最前面/">
+    <link rel="canonical" href="https://aiyuzhou.github.io/2016/12/16/H5-Animation-canvas百分比加载/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -145,15 +145,24 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>写在最前面</h1>
+                    <h1>H5-Animation-canvas百分比加载</h1>
                     
                     <span class="meta">
                          作者 Annie Chou
                         <span>
-                          日期 2016-12-15
+                          日期 2016-12-16
                          </span>
                     </span>
                     <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#H5"
+                           title="H5">H5</a>
+                        
+                        <a class="tag" href="/tags/#animation"
+                           title="animation">animation</a>
+                        
+                        <a class="tag" href="/tags/#canvas"
+                           title="canvas">canvas</a>
                         
                     </div>
                 </div>
@@ -162,7 +171,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            写在最前面
+            H5-Animation-canvas百分比加载
         </span>
     </div>
 </header>
@@ -173,30 +182,85 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h1 id="终于，我开始写博客了"><a href="#终于，我开始写博客了" class="headerlink" title="终于，我开始写博客了"></a>终于，我开始写博客了</h1><hr>
-<p>写在最前面</p>
-<h3 id="除去前两篇的测试文章，这大概算是我非常正式的写在自己的博客里的第一篇文章了，为什么说是大概呢！！！"><a href="#除去前两篇的测试文章，这大概算是我非常正式的写在自己的博客里的第一篇文章了，为什么说是大概呢！！！" class="headerlink" title="除去前两篇的测试文章，这大概算是我非常正式的写在自己的博客里的第一篇文章了，为什么说是大概呢！！！"></a>除去前两篇的测试文章，这大概算是我非常正式的写在自己的博客里的第一篇文章了，为什么说是大概呢！！！</h3><h4 id="原因是："><a href="#原因是：" class="headerlink" title="原因是："></a>原因是：</h4><ul>
-<li>我很早很早之前就想开始写博客了，至于多早，应该是我刚刚入门前端的时候吧，那个时候每次在网上搜寻学习过程中遇到的一些问题时，见到不少形式的博客，有写在CSDN的，有博客园的，有简书的，有github的，于是啊，我就萌生了自己写一个博客系统的想法，现在想想真是可笑啊哈哈哈哈哈哈。。。那时用的是javaweb，最后的结果呢，就是写了些静态的漂亮的页面，简单的交互：有阅读全文跳转到整章阅读，在article页面，阅读全文则全部文章的wrap div设置为display：none,单个文章的wrap div设置为display：block，然后js将内容换位点击那篇文章的内容。恩，然后我意识到自己一个人写一个系统不现实，我开始动手写的时候就是脑子一热就开始写了，完全没有考虑到一个博客系统项目架构，模块，数据库存储，到最后部署上线不是我一个刚刚入门的小菜鸟能搞定的，终于认清楚以后，就在这里停下来。</li>
-<li>我开始在印象笔记里零零散散的记一些知识，也在电脑创建过文件夹用markdown来记笔记，太零散了，整理的时候真希望有个标签一点就把我要的文章找出来。</li>
-<li>所以，在这么长的时间过去之后，我快毕业了，我终于决定搭建我的博客，对，就是今天，斟酌一番后，决定用最简易的github Pages和hexo来搭建博客（之前非常蠢得准备自己写一个博客系统的时候，还没有开始用github，捂脸逃），选了个自己喜欢的主题，就这样我的真正的博客开通了。</li>
+                <p>首先，代码源于<a href="https://github.com/supperjet/H5-Animation" target="_blank" rel="external">supperjet</a>，我是边看代码边学习记笔记。<br>源码: <a href="https://github.com/aiyuzhou/H5-Animation/blob/master/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%82%B9canvas%E5%8A%A8%E7%94%BB/canvas%E7%99%BE%E5%88%86%E6%AF%94%E5%8A%A0%E8%BD%BD.html" target="_blank" rel="external">canvas百分比加载</a></p>
+<h3 id="效果图是这样的"><a href="#效果图是这样的" class="headerlink" title="效果图是这样的:"></a>效果图是这样的:</h3><p><img src="http://oi7koh9y1.bkt.clouddn.com/trans%25.gif" alt="trans%"></p>
+<h3 id="代码解析drawFrame"><a href="#代码解析drawFrame" class="headerlink" title="代码解析drawFrame"></a>代码解析drawFrame</h3><pre><code>(function drawFrame(){
+    window.requestAnimationFrame(drawFrame, canvas);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    whiteCircle();
+    text(speed);
+    blueCircle(speed);
+
+    if(speed &gt; 100) speed = 0;
+    speed += 0.1;
+}());
+</code></pre><ul>
+<li>window.requestAnimationFrame(drawFrame, canvas);相当于是个递归吧，相当于是canvas每次调用一次drawFrame来重新渲染画布。</li>
+<li>clearRect来清除画布内容，其实这里就很清楚了，canvas的动画效果只是视觉上的动画，并非真的一点一点在变，大概意思就是：我要把一段直线从1cm变到2cm，我是先画了1cm的线段，在把这个画布清除，然后在画2cm的线段，而不是视觉上的先画1cm，然后在1cm的基础上再画1cm。</li>
 </ul>
-<h2 id="记录目前生活状态"><a href="#记录目前生活状态" class="headerlink" title="记录目前生活状态"></a>记录目前生活状态</h2><p>我是Annie Chou，是一名程序媛，现在就读于西安电子科技大学，于明年7月毕业。目前在北京一家智能硬件创业公司实习，也打算继续留在这里工作。</p>
-<p>希望自己可以在前端的路上摸爬打滚越滚越远！</p>
+<h3 id="代码解析whiteCircle"><a href="#代码解析whiteCircle" class="headerlink" title="代码解析whiteCircle"></a>代码解析whiteCircle</h3><pre><code>function whiteCircle(){
+    context.save();
+    context.beginPath();
+    context.strokeStyle = &quot;white&quot;;
+    context.arc(centerX, centerY, 100 , 0, Math.PI*2, false);
+    context.stroke();
+    context.closePath();
+    context.restore();
+    console.log(&quot;whiteCircle&quot;);
+}
+</code></pre><ul>
+<li>whiteCircle()用来画白色的底线，底线一直都是完整圆，所以都是0，2π</li>
+</ul>
+<h3 id="代码解析text"><a href="#代码解析text" class="headerlink" title="代码解析text"></a>代码解析text</h3><pre><code>function text(n){
+    context.save();
+    context.strokeStyle = &quot;#49f&quot;;
+    context.font = &quot;40px Arial&quot;;
+    context.strokeText(n.toFixed(0)+&quot;%&quot;, centerX-25, centerY+10);
+    context.stroke();
+    context.restore();
+}
+</code></pre><ul>
+<li>text(speed)用来变化百分比这个n.toFixed(0)四舍五入保留一位，所以是从0~100</li>
+</ul>
+<h3 id="代码解析blueCircle"><a href="#代码解析blueCircle" class="headerlink" title="代码解析blueCircle"></a>代码解析blueCircle</h3><pre><code>function blueCircle(n){
+    context.save();
+    context.beginPath();
+    context.strokeStyle = &quot;#49f&quot;;
+    context.lineWidth = 5;
+    context.arc(centerX, centerY, 100 , -Math.PI/2, -Math.PI/2 +n*rad, false);
+    context.stroke();
+    context.closePath();
+    context.restore();
+}
+</code></pre><ul>
+<li>blueCircle(speed)蓝线表示进度条，每次都从-1/2π开始画到-1/2π + speed*rad(rad = 2π/100)</li>
+</ul>
+<h3 id="window-requestAnimationFrame-drawFrame-canvas"><a href="#window-requestAnimationFrame-drawFrame-canvas" class="headerlink" title="window.requestAnimationFrame(drawFrame, canvas)"></a>window.requestAnimationFrame(drawFrame, canvas)</h3><p>是浏览器来调用的，自然在流畅性上比setInterval和setTimeout好，并且节省资源，如果用setInterval来实现</p>
+<pre><code>var timer = setInterval(function () {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    whiteCircle();
+    text(speed);
+    blueCircle(speed);
+
+    if(speed &gt; 100) {
+        speed = 0;
+        //clearInterval(timer);//如果只执行一次，在这里清除句柄就OK
+    }
+    speed += 0.1;
+},50);
+</code></pre><p>同样window.requestAnimationFrame也会返回唯一表示requestID，可用window.cancelAnimationFrame()来取消回调函数.</p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2016/12/16/H5-Animation-canvas百分比加载/" data-toggle="tooltip" data-placement="top"
-                           title="H5-Animation-canvas百分比加载">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2016/12/15/linux命令_chmod_755的含义/" data-toggle="tooltip" data-placement="top"
-                           title="linux命令 chmod 755的含义">Next Post &rarr;</a>
+                        <a href="/2016/12/15/写在最前面/" data-toggle="tooltip" data-placement="top"
+                           title="写在最前面">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -209,7 +273,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#终于，我开始写博客了"><span class="toc-text">终于，我开始写博客了</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#除去前两篇的测试文章，这大概算是我非常正式的写在自己的博客里的第一篇文章了，为什么说是大概呢！！！"><span class="toc-text">除去前两篇的测试文章，这大概算是我非常正式的写在自己的博客里的第一篇文章了，为什么说是大概呢！！！</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原因是："><span class="toc-text">原因是：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#记录目前生活状态"><span class="toc-text">记录目前生活状态</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#效果图是这样的"><span class="toc-text">效果图是这样的:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解析drawFrame"><span class="toc-text">代码解析drawFrame</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解析whiteCircle"><span class="toc-text">代码解析whiteCircle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解析text"><span class="toc-text">代码解析text</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解析blueCircle"><span class="toc-text">代码解析blueCircle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window-requestAnimationFrame-drawFrame-canvas"><span class="toc-text">window.requestAnimationFrame(drawFrame, canvas)</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -230,6 +294,15 @@
                         <a href="/tags/">FEATURED TAGS</a>
                     </h5>
                     <div class="tags">
+                        
+                        <a class="tag" href="/tags/#H5"
+                           title="H5">H5</a>
+                        
+                        <a class="tag" href="/tags/#animation"
+                           title="animation">animation</a>
+                        
+                        <a class="tag" href="/tags/#canvas"
+                           title="canvas">canvas</a>
                         
                     </div>
                 </section>
