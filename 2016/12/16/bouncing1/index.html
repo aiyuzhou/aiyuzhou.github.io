@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        bouncing1｜Annie&#39;s blog
+        canvas实现小球的弹性碰撞｜Annie&#39;s blog
         
     </title>
 
@@ -145,7 +145,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>bouncing1</h1>
+                    <h1>canvas实现小球的弹性碰撞</h1>
                     
                     <span class="meta">
                          作者 Annie Chou
@@ -171,7 +171,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            bouncing1
+            canvas实现小球的弹性碰撞
         </span>
     </div>
 </header>
@@ -182,7 +182,7 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="写在最前面"><a href="#写在最前面" class="headerlink" title="写在最前面"></a>写在最前面</h3><p>首先，代码源于<a href="https://github.com/supperjet/H5-Animation" target="_blank" rel="external">supperjet</a><br>源码: <a href="https://github.com/aiyuzhou/H5-Animation/blob/master/%E8%BE%B9%E7%95%8C%E4%B8%8E%E6%91%A9%E6%93%A6%E5%8A%9B/bouncing1.html" target="_blank" rel="external">小球碰撞运动</a><br>写之前，想一个问题，如果我要写一个box内弹性碰撞的小球的动画，我应该从哪里入手。</p>
+                <h3 id="写在最前面"><a href="#写在最前面" class="headerlink" title="写在最前面"></a>写在最前面</h3><p>首先，代码源于<a href="https://github.com/supperjet/H5-Animation" target="_blank" rel="external">supperjet</a><br>源码: <a href="https://github.com/aiyuzhou/H5-Animation/blob/master/%E8%BE%B9%E7%95%8C%E4%B8%8E%E6%91%A9%E6%93%A6%E5%8A%9B/bouncing1.html" target="_blank" rel="external">小球碰撞运动</a><br>效果图如下：<br><img src="http://oi7koh9y1.bkt.clouddn.com/bouncing.gif" alt="bouncing"><br>写之前，想一个问题，如果我要写一个box内弹性碰撞的小球的动画，我应该从哪里入手。</p>
 <ul>
 <li>先从对象开始考虑，我需要定义ball和box两个对象，ball需要有大小，颜色，所在位置这些属性，box只需要有长宽属性，而在动画中canvas就是box。</li>
 <li>考虑碰撞规则<ul>
@@ -242,6 +242,11 @@ if(ball.x + ball.radius &gt; canvas.width){
                 
 
                 <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/12/18/静下心来，思考/" data-toggle="tooltip" data-placement="top"
+                           title="静下心来，思考">&larr; Previous Post</a>
+                    </li>
                     
                     
                     <li class="next">
