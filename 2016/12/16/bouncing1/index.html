@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        H5-Animation-canvas百分比加载｜Annie&#39;s blog
+        bouncing1｜Annie&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="https://aiyuzhou.github.io/2016/12/16/H5-Animation-canvas百分比加载/">
+    <link rel="canonical" href="https://aiyuzhou.github.io/2016/12/16/bouncing1/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -145,7 +145,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>H5-Animation-canvas百分比加载</h1>
+                    <h1>bouncing1</h1>
                     
                     <span class="meta">
                          作者 Annie Chou
@@ -155,14 +155,14 @@
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#H5"
-                           title="H5">H5</a>
-                        
                         <a class="tag" href="/tags/#animation"
                            title="animation">animation</a>
                         
                         <a class="tag" href="/tags/#canvas"
                            title="canvas">canvas</a>
+                        
+                        <a class="tag" href="/tags/#bouncing"
+                           title="bouncing">bouncing</a>
                         
                     </div>
                 </div>
@@ -171,7 +171,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            H5-Animation-canvas百分比加载
+            bouncing1
         </span>
     </div>
 </header>
@@ -182,90 +182,71 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>首先，代码源于<a href="https://github.com/supperjet/H5-Animation" target="_blank" rel="external">supperjet</a>，我是边看代码边学习记笔记。<br>源码: <a href="https://github.com/aiyuzhou/H5-Animation/blob/master/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%82%B9canvas%E5%8A%A8%E7%94%BB/canvas%E7%99%BE%E5%88%86%E6%AF%94%E5%8A%A0%E8%BD%BD.html" target="_blank" rel="external">canvas百分比加载</a></p>
-<h3 id="效果图是这样的"><a href="#效果图是这样的" class="headerlink" title="效果图是这样的:"></a>效果图是这样的:</h3><p><img src="http://oi7koh9y1.bkt.clouddn.com/trans%25.gif" alt="trans%"></p>
-<h3 id="代码解析drawFrame"><a href="#代码解析drawFrame" class="headerlink" title="代码解析drawFrame"></a>代码解析drawFrame</h3><pre><code>(function drawFrame(){
-    window.requestAnimationFrame(drawFrame, canvas);
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    whiteCircle();
-    text(speed);
-    blueCircle(speed);
-
-    if(speed &gt; 100) speed = 0;
-    speed += 0.1;
-}());
-</code></pre><ul>
-<li>window.requestAnimationFrame(drawFrame, canvas);相当于是个递归吧，相当于是canvas每次调用一次drawFrame来重新渲染画布。</li>
-<li>clearRect来清除画布内容，其实这里就很清楚了，canvas的动画效果只是视觉上的动画，并非真的一点一点在变，大概意思就是：我要把一段直线从1cm变到2cm，我是先画了1cm的线段，在把这个画布清除，然后在画2cm的线段，而不是视觉上的先画1cm，然后在1cm的基础上再画1cm。</li>
+                <h3 id="写在最前面"><a href="#写在最前面" class="headerlink" title="写在最前面"></a>写在最前面</h3><p>首先，代码源于<a href="https://github.com/supperjet/H5-Animation" target="_blank" rel="external">supperjet</a><br>源码: <a href="https://github.com/aiyuzhou/H5-Animation/blob/master/%E8%BE%B9%E7%95%8C%E4%B8%8E%E6%91%A9%E6%93%A6%E5%8A%9B/bouncing1.html" target="_blank" rel="external">小球碰撞运动</a><br>写之前，想一个问题，如果我要写一个box内弹性碰撞的小球的动画，我应该从哪里入手。</p>
+<ul>
+<li>先从对象开始考虑，我需要定义ball和box两个对象，ball需要有大小，颜色，所在位置这些属性，box只需要有长宽属性，而在动画中canvas就是box。</li>
+<li>考虑碰撞规则<ul>
+<li>若碰撞到box的上边，则碰撞条件是：ball的中心点坐标 y 小于其自身半径 radius，解决方法是：将ball的中心点坐标 y 置为ball.radius并且ball的垂直运动方向反向</li>
+<li>若碰撞到box的下边，则碰撞条件是：ball的中心点坐标 y 与其自身半径 radius之和大于box的height，解决方法是：将ball的中心点坐标 y 置为box.height - ball.radius并且ball的垂直运动方向反向</li>
+<li>若碰撞到box的左边，则碰撞条件是：ball的中心点坐标 x 小于其自身半径 radius，解决方法是：将ball的中心点坐标 x 置为ball.radius并且ball的水平运动方向反向</li>
+<li>若碰撞到box的右边，则碰撞条件是：ball的中心点坐标 x 与其自身半径 radius之和大于box的width，解决方法是：将ball的中心点坐标 x 置为box.width - ball.radius并且ball的水平运动方向反向</li>
 </ul>
-<h3 id="代码解析whiteCircle"><a href="#代码解析whiteCircle" class="headerlink" title="代码解析whiteCircle"></a>代码解析whiteCircle</h3><pre><code>function whiteCircle(){
+</li>
+<li>ball的实现是每次运动都重新渲染画布，所以，ball还需要一个draw的方法来完成自身的渲染</li>
+</ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="ball对象"><a href="#ball对象" class="headerlink" title="ball对象"></a>ball对象</h4><pre><code>function Ball(radius,color){
+    if(radius === undefined) {radius = 40;}
+    if(color === undefined){color = &apos;#00ff00&apos;;}
+    this.x = 0;     //中心点坐标x,y
+    this.y = 0;
+    this.vx = 0;    //小球的水平及垂直运动方向
+    this.vy = 0;
+    this.radius = radius;
+    this.color = color;
+}
+</code></pre><h4 id="box对象（即canvas）"><a href="#box对象（即canvas）" class="headerlink" title="box对象（即canvas）"></a>box对象（即canvas）</h4><pre><code>&lt;canvas id=&apos;canvas&apos; width=&quot;400&quot; height=&quot;300&quot; style=&quot;background:#000&quot;&gt;&lt;/canvas&gt;
+</code></pre><h4 id="碰撞规则"><a href="#碰撞规则" class="headerlink" title="碰撞规则"></a>碰撞规则</h4><pre><code>ball.x = ball.x + ball.vx;   //小球运动
+ball.y = ball.y + ball.vy;
+
+//碰撞规则
+if(ball.y &lt; ball.radius){
+    ball.y = ball.radius;
+    ball.vy = ball.vy*(-1);
+}
+if(ball.y + ball.radius &gt; canvas.height){
+    ball.y = canvas.height - ball.radius;
+    ball.vy = ball.vy*(-1);
+}
+if(ball.x &lt; ball.radius){
+    ball.x = ball.radius;
+    ball.vx = ball.vx*(-1);
+}
+if(ball.x + ball.radius &gt; canvas.width){
+    ball.x = canvas.width - ball.radius;
+    ball.vx = ball.vx*(-1);
+}
+</code></pre><h4 id="小球渲染"><a href="#小球渲染" class="headerlink" title="小球渲染"></a>小球渲染</h4><pre><code>Ball.prototype.draw = function(context){
     context.save();
+    context.translate(this.x,this.y);
+    context.fillStyle = this.color;
+    context.strokeStyle = this.color;
     context.beginPath();
-    context.strokeStyle = &quot;white&quot;;
-    context.arc(centerX, centerY, 100 , 0, Math.PI*2, false);
-    context.stroke();
+    context.arc(0,0,this.radius,0,Math.PI*2,false);
     context.closePath();
-    context.restore();
-    console.log(&quot;whiteCircle&quot;);
-}
-</code></pre><ul>
-<li>whiteCircle()用来画白色的底线，底线一直都是完整圆，所以都是0，2π</li>
-</ul>
-<h3 id="代码解析text"><a href="#代码解析text" class="headerlink" title="代码解析text"></a>代码解析text</h3><pre><code>function text(n){
-    context.save();
-    context.strokeStyle = &quot;#49f&quot;;
-    context.font = &quot;40px Arial&quot;;
-    context.strokeText(n.toFixed(0)+&quot;%&quot;, centerX-25, centerY+10);
+    context.fill();
     context.stroke();
     context.restore();
 }
-</code></pre><ul>
-<li>text(speed)用来变化百分比这个n.toFixed(0)四舍五入保留一位，所以是从0~100</li>
-</ul>
-<h3 id="代码解析blueCircle"><a href="#代码解析blueCircle" class="headerlink" title="代码解析blueCircle"></a>代码解析blueCircle</h3><pre><code>function blueCircle(n){
-    context.save();
-    context.beginPath();
-    context.strokeStyle = &quot;#49f&quot;;
-    context.lineWidth = 5;
-    context.arc(centerX, centerY, 100 , -Math.PI/2, -Math.PI/2 +n*rad, false);
-    context.stroke();
-    context.closePath();
-    context.restore();
-}
-</code></pre><ul>
-<li>blueCircle(speed)蓝线表示进度条，每次都从-1/2π开始画到-1/2π + speed*rad(rad = 2π/100)</li>
-</ul>
-<h3 id="window-requestAnimationFrame-drawFrame-canvas"><a href="#window-requestAnimationFrame-drawFrame-canvas" class="headerlink" title="window.requestAnimationFrame(drawFrame, canvas)"></a>window.requestAnimationFrame(drawFrame, canvas)</h3><p>是浏览器来调用的，自然在流畅性上比setInterval和setTimeout好，并且节省资源，如果用setInterval来实现</p>
-<pre><code>var timer = setInterval(function () {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    whiteCircle();
-    text(speed);
-    blueCircle(speed);
-
-    if(speed &gt; 100) {
-        speed = 0;
-        //clearInterval(timer);//如果只执行一次，在这里清除句柄就OK
-    }
-    speed += 0.1;
-},50);
-</code></pre><p>同样window.requestAnimationFrame也会返回唯一表示requestID，可用window.cancelAnimationFrame()来取消回调函数.</p>
-
+</code></pre>
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2016/12/16/bouncing1/" data-toggle="tooltip" data-placement="top"
-                           title="bouncing1">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2016/12/15/写在最前面/" data-toggle="tooltip" data-placement="top"
-                           title="写在最前面">Next Post &rarr;</a>
+                        <a href="/2016/12/16/H5-Animation-canvas百分比加载/" data-toggle="tooltip" data-placement="top"
+                           title="H5-Animation-canvas百分比加载">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -278,7 +259,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#效果图是这样的"><span class="toc-text">效果图是这样的:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解析drawFrame"><span class="toc-text">代码解析drawFrame</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解析whiteCircle"><span class="toc-text">代码解析whiteCircle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解析text"><span class="toc-text">代码解析text</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解析blueCircle"><span class="toc-text">代码解析blueCircle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window-requestAnimationFrame-drawFrame-canvas"><span class="toc-text">window.requestAnimationFrame(drawFrame, canvas)</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在最前面"><span class="toc-text">写在最前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ball对象"><span class="toc-text">ball对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#box对象（即canvas）"><span class="toc-text">box对象（即canvas）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#碰撞规则"><span class="toc-text">碰撞规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小球渲染"><span class="toc-text">小球渲染</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -300,14 +281,14 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#H5"
-                           title="H5">H5</a>
-                        
                         <a class="tag" href="/tags/#animation"
                            title="animation">animation</a>
                         
                         <a class="tag" href="/tags/#canvas"
                            title="canvas">canvas</a>
+                        
+                        <a class="tag" href="/tags/#bouncing"
+                           title="bouncing">bouncing</a>
                         
                     </div>
                 </section>
