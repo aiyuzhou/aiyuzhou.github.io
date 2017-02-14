@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        canvas实现小球的弹性碰撞｜Annie&#39;s blog
+        手机端以及微信内置浏览器关于H5的开发遇到的问题｜Annie&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="https://aiyuzhou.github.io/2016/12/16/bouncing1/">
+    <link rel="canonical" href="https://aiyuzhou.github.io/2017/02/14/手机端以及微信内置浏览器关于H5的开发遇到的问题/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -145,24 +145,27 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>canvas实现小球的弹性碰撞</h1>
+                    <h1>手机端以及微信内置浏览器关于H5的开发遇到的问题</h1>
                     
                     <span class="meta">
                          作者 Annie Chou
                         <span>
-                          日期 2016-12-16
+                          日期 2017-02-14
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#animation"
-                           title="animation">animation</a>
+                        <a class="tag" href="/tags/#H5"
+                           title="H5">H5</a>
                         
-                        <a class="tag" href="/tags/#canvas"
-                           title="canvas">canvas</a>
+                        <a class="tag" href="/tags/#WeChat"
+                           title="WeChat">WeChat</a>
                         
-                        <a class="tag" href="/tags/#bouncing"
-                           title="bouncing">bouncing</a>
+                        <a class="tag" href="/tags/#video"
+                           title="video">video</a>
+                        
+                        <a class="tag" href="/tags/#微信内置浏览器"
+                           title="微信内置浏览器">微信内置浏览器</a>
                         
                     </div>
                 </div>
@@ -171,7 +174,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            canvas实现小球的弹性碰撞
+            手机端以及微信内置浏览器关于H5的开发遇到的问题
         </span>
     </div>
 </header>
@@ -182,76 +185,37 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="写在最前面"><a href="#写在最前面" class="headerlink" title="写在最前面"></a>写在最前面</h3><p>首先，代码源于<a href="https://github.com/supperjet/H5-Animation" target="_blank" rel="external">supperjet</a><br>源码: <a href="https://github.com/aiyuzhou/H5-Animation/blob/master/%E8%BE%B9%E7%95%8C%E4%B8%8E%E6%91%A9%E6%93%A6%E5%8A%9B/bouncing1.html" target="_blank" rel="external">小球碰撞运动</a><br>效果图如下：<br><img src="http://oi7koh9y1.bkt.clouddn.com/bouncing.gif" alt="bouncing"><br>写之前，想一个问题，如果我要写一个box内弹性碰撞的小球的动画，我应该从哪里入手。</p>
-<ul>
-<li>先从对象开始考虑，我需要定义ball和box两个对象，ball需要有大小，颜色，所在位置这些属性，box只需要有长宽属性，而在动画中canvas就是box。</li>
-<li>考虑碰撞规则<ul>
-<li>若碰撞到box的上边，则碰撞条件是：ball的中心点坐标 y 小于其自身半径 radius，解决方法是：将ball的中心点坐标 y 置为ball.radius并且ball的垂直运动方向反向</li>
-<li>若碰撞到box的下边，则碰撞条件是：ball的中心点坐标 y 与其自身半径 radius之和大于box的height，解决方法是：将ball的中心点坐标 y 置为box.height - ball.radius并且ball的垂直运动方向反向</li>
-<li>若碰撞到box的左边，则碰撞条件是：ball的中心点坐标 x 小于其自身半径 radius，解决方法是：将ball的中心点坐标 x 置为ball.radius并且ball的水平运动方向反向</li>
-<li>若碰撞到box的右边，则碰撞条件是：ball的中心点坐标 x 与其自身半径 radius之和大于box的width，解决方法是：将ball的中心点坐标 x 置为box.width - ball.radius并且ball的水平运动方向反向</li>
-</ul>
-</li>
-<li>ball的实现是每次运动都重新渲染画布，所以，ball还需要一个draw的方法来完成自身的渲染</li>
-</ul>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="ball对象"><a href="#ball对象" class="headerlink" title="ball对象"></a>ball对象</h4><pre><code>function Ball(radius,color){
-    if(radius === undefined) {radius = 40;}
-    if(color === undefined){color = &apos;#00ff00&apos;;}
-    this.x = 0;     //中心点坐标x,y
-    this.y = 0;
-    this.vx = 0;    //小球的水平及垂直运动方向
-    this.vy = 0;
-    this.radius = radius;
-    this.color = color;
-}
-</code></pre><h4 id="box对象（即canvas）"><a href="#box对象（即canvas）" class="headerlink" title="box对象（即canvas）"></a>box对象（即canvas）</h4><pre><code>&lt;canvas id=&apos;canvas&apos; width=&quot;400&quot; height=&quot;300&quot; style=&quot;background:#000&quot;&gt;&lt;/canvas&gt;
-</code></pre><h4 id="碰撞规则"><a href="#碰撞规则" class="headerlink" title="碰撞规则"></a>碰撞规则</h4><pre><code>ball.x = ball.x + ball.vx;   //小球运动
-ball.y = ball.y + ball.vy;
+                <p>最近在开发一个H5页面，H5嘛都在微信中浏览，所以就神奇的入了微信内置浏览器的坑。</p>
+<p>其中有两页是两个视频，理想效果是在滑到那页时自动播放视频，最开始拿到的视频是mov格式，我知道本身H5就没有来支持这个格式，侥幸试了试，在我的手机上可以播放，但不能自动播放，强制点击后全屏播放，诶，我一查全是说iPhone上不能嵌入页面自动播放，找资料查到了iphone-inline-video.min.js，用法可以看这里<a href="https://www.npmjs.com/package/iphone-inline-video" target="_blank" rel="external">iphone-inline-video</a>，到这里看来mov格式在我手机上是可以的，结果测试<br>其他iPhone6，6p等等等都不行，侥幸试试嘛，格式是肯定要换的。</p>
+<p>所以写了以下：</p>
+<pre><code>&apos;&lt;video src=&quot;img/movie.mp4&quot; preload=&quot;auto&quot; autoplay=&apos;autoplay&apos; loop=&apos;loop&apos;&gt;&lt;/video&gt;&apos;
+</code></pre><p>提前加载，自动播放，循环播放嘛</p>
+<p>然后打开浏览器，什么都没有，真的什么都没有啊。。这里要指明的问题是用任何模拟器调试（指chrome上各种模拟器，还有如果开发微信web所用的微信web开发者工具）都很有可能和真机调试结果不同，比如我在iPhoneSE上可以显示mp4格式，可是微信开发者工具上却是显示不了的，你可以试试加个控制条，会发现控制条在，视频却是没有的。</p>
+<p>然后啊，我就去网上先找了个ogg格式的试试，唉，也不行啊。这次是微信web开发者工具上可以显示，手机上不行。</p>
+<p>然后我试着在source里分别放mp4和ogg格式：</p>
+<pre><code>&apos;&lt;video preload=&quot;auto&quot; autoplay=&apos;autoplay&apos; loop=&apos;loop&apos;&gt;
+        &lt;source src=&quot;img/movie.ogg&quot; type=&quot;video/ogg&quot;&gt;
+        &lt;source src=&quot;img/movie.mp4&quot; type=&quot;video/mp4&quot;&gt;
+ &lt;/video&gt;&apos;
+</code></pre><p>再测试，微信web开发工具显示ogg格式，手机微信上显示mp4格式（别问我怎么知道的，我的两个视频内容不一样哈哈哈</p>
+<p>那我再换顺序</p>
+<pre><code>&apos;&lt;video preload=&quot;auto&quot; autoplay=&apos;autoplay&apos; loop=&apos;loop&apos;&gt;
+        &lt;source src=&quot;img/movie.mp4&quot; type=&quot;video/ogg&quot;&gt;
+        &lt;source src=&quot;img/movie.ogg&quot; type=&quot;video/mp4&quot;&gt;
+ &lt;/video&gt;&apos;
+</code></pre><p>结果没变，首先微信web不支持mp4格式，但支持ogg，然而手机微信却相反，首先要说的是，微信web开发者工具做的太烂。。既然你专门做了个开发者工具，就要和微信对应的上，省去开发者强行在微信内置浏览器调试的繁琐过程，真的非常非常繁琐啊。</p>
+<p>那么微信内置浏览器到底支持什么格式呢？</p>
+<p>反正mp4是支持的。。ogg按照我这样测试过说明不支持，至于webM还没测试过呢</p>
 
-//碰撞规则
-if(ball.y &lt; ball.radius){
-    ball.y = ball.radius;
-    ball.vy = ball.vy*(-1);
-}
-if(ball.y + ball.radius &gt; canvas.height){
-    ball.y = canvas.height - ball.radius;
-    ball.vy = ball.vy*(-1);
-}
-if(ball.x &lt; ball.radius){
-    ball.x = ball.radius;
-    ball.vx = ball.vx*(-1);
-}
-if(ball.x + ball.radius &gt; canvas.width){
-    ball.x = canvas.width - ball.radius;
-    ball.vx = ball.vx*(-1);
-}
-</code></pre><h4 id="小球渲染"><a href="#小球渲染" class="headerlink" title="小球渲染"></a>小球渲染</h4><pre><code>Ball.prototype.draw = function(context){
-    context.save();
-    context.translate(this.x,this.y);
-    context.fillStyle = this.color;
-    context.strokeStyle = this.color;
-    context.beginPath();
-    context.arc(0,0,this.radius,0,Math.PI*2,false);
-    context.closePath();
-    context.fill();
-    context.stroke();
-    context.restore();
-}
-</code></pre>
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2016/12/18/静下心来，思考/" data-toggle="tooltip" data-placement="top"
-                           title="静下心来，思考">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2016/12/16/H5-Animation-canvas百分比加载/" data-toggle="tooltip" data-placement="top"
-                           title="H5-Animation-canvas百分比加载">Next Post &rarr;</a>
+                        <a href="/2017/02/10/移动优先的跨终端/" data-toggle="tooltip" data-placement="top"
+                           title="">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -264,7 +228,7 @@ if(ball.x + ball.radius &gt; canvas.width){
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在最前面"><span class="toc-text">写在最前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ball对象"><span class="toc-text">ball对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#box对象（即canvas）"><span class="toc-text">box对象（即canvas）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#碰撞规则"><span class="toc-text">碰撞规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小球渲染"><span class="toc-text">小球渲染</span></a></li></ol></li></ol>
+                    
                 </div>
             </div>
         </div>
@@ -286,14 +250,17 @@ if(ball.x + ball.radius &gt; canvas.width){
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#animation"
-                           title="animation">animation</a>
+                        <a class="tag" href="/tags/#H5"
+                           title="H5">H5</a>
                         
-                        <a class="tag" href="/tags/#canvas"
-                           title="canvas">canvas</a>
+                        <a class="tag" href="/tags/#WeChat"
+                           title="WeChat">WeChat</a>
                         
-                        <a class="tag" href="/tags/#bouncing"
-                           title="bouncing">bouncing</a>
+                        <a class="tag" href="/tags/#video"
+                           title="video">video</a>
+                        
+                        <a class="tag" href="/tags/#微信内置浏览器"
+                           title="微信内置浏览器">微信内置浏览器</a>
                         
                     </div>
                 </section>
