@@ -22,7 +22,7 @@
         
     </title>
 
-    <link rel="canonical" href="https://aiyuzhou.github.io/tags/canvas/">
+    <link rel="canonical" href="https://aiyuzhou.github.io/2017/02/24/xcode调试ionic项目/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="true
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -124,217 +124,146 @@
 
 <!-- Main Content -->
 
+<!--only post-->
 
-<!-- Page Header -->
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
-    <div class="row">
-        <header class="intro-header">
-            <div class="container">
-                <div class="site-heading text-center">
-                    <div class="about-me">
-                        <!--移动端头部显示-->
-                        <img src="http://oi7koh9y1.bkt.clouddn.com/headImg.jpg"/>
-                        <h5><a href="/about/">Annie Chou</a></h5>
-                        <p>世上有可以挽回和不可挽回的事，而时间经过就是一种不可挽回的事</p>
+
+<img class="wechat-title-img"
+     src="http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1></h1>
+                    
+                    <span class="meta">
+                         作者 Annie Chou
+                        <span>
+                          日期 2017-02-24
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
     </div>
-</div>
-<!-- Main Content -->
-<div class="container custom-haojen-container">
-    <!-- Post Container -->
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
-            <!-- Main Content -->
+    <div class="post-title-haojen">
+        <span>
+            
+        </span>
+    </div>
+</header>
 
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2016/12/16/bouncing1/">
-        <h2 class="post-title">
-            canvas实现小球的弹性碰撞
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-16
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                写在最前面首先，代码源于supperjet源码: 小球碰撞运动效果图如下：写之前，想一个问题，如果我要写一个box内弹性碰撞的小球的动画，我应该从哪里入手。
-
-先从对象开始考虑，我需要定义ball和box两个对象，ball需要有大小，颜色，所在位置这些属性，box只需要有长宽属性，而在动画中ca..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2016/12/16/H5-Animation-canvas百分比加载/">
-        <h2 class="post-title">
-            H5-Animation-canvas百分比加载
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-16
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                首先，代码源于supperjet，我是边看代码边学习记笔记。源码: canvas百分比加载
-效果图是这样的:
-代码解析drawFrame(function drawFrame(){
-    window.requestAnimationFrame(drawFrame, canvas);
-    ..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-
-<!-- 翻页 pager -->
-
-<ul class="pager">
-    
-    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>ionic build ios<br>出现Error：munger.add_config_changes is not a function<br>原因可能是版本不匹配导致<br>更新cordova：<br>npm update -g cordova<br>更新后：<br>rm -r platforms &amp;&amp; rm -r plugins<br>重新添加平台：<br>ionic platform add ios<br>重新build：<br>inoic build ios<br>发现build成功<br>在使用onesignal-cordova-plugin时出现window.plugins.onsignal.init not a function</p>
+<p>当使用node-sass时出现libsass bindings not found时</p>
+<ul>
+<li><p>先根据提示reinstall node-sass</p>
+<pre><code>npm uninstall node-sass
+npm install node-sass
+</code></pre></li>
+<li><p>若是仍然有错误，重装所有node-moudles</p>
+<pre><code>rm -rf node-moudles
+npm install
+</code></pre></li>
+<li><p>若是仍然有错误，重新build node-sass</p>
+<pre><code>npm rebuild node-sass
+</code></pre></li>
+<li><p>若是仍然有错误，则可能是gulp-sass的版本过低</p>
+<pre><code>npm uninstall --save-dev gulp-sass
+npm install --save-dev gulp-sass@2
+</code></pre></li>
 </ul>
+<p>gulp-sass是使用gulp构建项目时把sass编译成css的一个插件，当你使用node4.x及以上版本时，则会需求更高版本的gulp-sass</p>
 
+                <hr>
+                
 
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/02/22/JavaScript事件/" data-toggle="tooltip" data-placement="top"
+                           title="">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    
+                </div>
+            </div>
         </div>
-        <!-- Sidebar Container -->
-        <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
 
-            <!-- About Me -->
-            <section class="visible-md visible-lg" style="padding: 0 18px">
-                <div class="short-about">
-                    <!--侧边栏头像-->
-                    
-                    <img src="http://oi7koh9y1.bkt.clouddn.com/headImg.jpg"/>
-                    
-                    <h5><a href="/about/">Annie Chou</a></h5>
-                    
-                    <p>世上有可以挽回和不可挽回的事，而时间经过就是一种不可挽回的事</p>
-                    
-                    <hr>
-                    <!-- SNS Link 社交 -->
-                    <ul class="list-inline">
-                        
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://www.zhihu.com/people/ben-xiao-niu">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+        <div class="row">
+            <!-- Sidebar Container -->
 
-                        
-                        <li>
-                            <a target="_blank" href="http://weibo.com/喵喵小妞52221">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
                         
+                    </div>
+                </section>
+                
 
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
                         
-                        <li>
-                            <a target="_blank" href="https://github.com/aiyuzhou">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
+                        <li><a href="https://aiyuzhou.github.io/">Annie&#39; blog</a></li>
                         
-
+                        <li><a href="https://aiyuzhou.github.io/">haha</a></li>
                         
                     </ul>
                 </div>
-            </section>
-
-            <!-- Featured Tags  标签 -->
-            
-            <section>
-                <div class="tags">
-                    
-                    
-                    
-                    
-                    <a href="/tags/#H5" title="H5"
-                       rel="2">H5</a>
-                    
-                    
-                    
-                    <a href="/tags/#animation" title="animation"
-                       rel="2">animation</a>
-                    
-                    
-                    
-                    <a href="/tags/#canvas" title="canvas"
-                       rel="2">canvas</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
-            </section>
-            
-
-            
-            <hr>
-            <h5 style="text-align: center;">Friends</h5>
-            <ul class="list-inline" style="text-align: center;">
                 
-                <li><a href="https://aiyuzhou.github.io/" target="_blank">Annie&#39; blog</a></li>
-                
-                <li><a href="https://aiyuzhou.github.io/" target="_blank">haha</a></li>
-                
-            </ul>
-            
-
+            </div>
         </div>
+
     </div>
-</div>
+</article>
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->
