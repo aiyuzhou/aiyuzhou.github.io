@@ -22,7 +22,7 @@
         
     </title>
 
-    <link rel="canonical" href="https://aiyuzhou.github.io/2017/02/22/JavaScript事件/">
+    <link rel="canonical" href="https://aiyuzhou.github.io/2017/03/14/深入理解JavaScript闭包机制/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -150,7 +150,7 @@
                     <span class="meta">
                          作者 Annie Chou
                         <span>
-                          日期 2017-02-22
+                          日期 2017-03-14
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -173,49 +173,112 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="IE事件处理程序"><a href="#IE事件处理程序" class="headerlink" title="IE事件处理程序"></a>IE事件处理程序</h3><ul>
-<li>IE实现了与DOM2级事件处理程序类似的两个方法：attachEvent（）和detachEvent（）。</li>
-<li>这两个方法接受相同的两个参数：事件处理程序名称与事件处理程序函数。</li>
-<li>通过attachEvent（）添加的事件处理程序都会被添加到冒泡阶段。</li>
-<li>而且attachEvent（）的第一个参数是”onclick”,”onload”等，而不是addEventListener（）方法中的第一个参数”click”</li>
-<li>在DOM0级方法下，事件处理程序会在其所属的作用域内运行；但IE事件处理程序会在全局作用域中运行，attachEvent（）中的this等于window。</li>
-<li><p>attachEvent（）为同一个按钮添加的两个不同事件处理程序的执行顺序与DOM方法中当好相反。</p>
-<pre><code>var btn = document.getElementById(&apos;btn&apos;);
-btn.attachEvent(&quot;onclick&quot;, function(){
-    alert(&quot;clicked&quot;);
-});
-btn.attachEvent(&quot;onclick&quot;, function(){
-    alert(&quot;Hello world&quot;);
-});
-</code></pre></li>
-</ul>
-<ul>
-<li>执行这段代码在IE中会首先看到“Hello world!”,然后才是“clicked”.</li>
-<li>而若是DOM事件处理程序，则是按照事件处理程序添加的顺序执行的，即先看到”clicked”,然后才是”Hello world！”</li>
-<li>对于detachEvent（）来说，和DOM方法中一样，只要将对相同函数的引用传给detachEvent（），就可以移除相应的事件处理程序。</li>
-</ul>
-<h3 id="跨浏览器事件处理程序"><a href="#跨浏览器事件处理程序" class="headerlink" title="跨浏览器事件处理程序"></a>跨浏览器事件处理程序</h3><p>编写跨浏览器的事件处理程序，只需要恰当的使用能力检测即可.</p>
-<ul>
-<li>首先会检测是否支持DOM2级事件处理程序，其次检测是否存在IE的方法，最后一种则是DOM0级方法。</li>
-</ul>
-<h3 id="事件处理程序注意点："><a href="#事件处理程序注意点：" class="headerlink" title="事件处理程序注意点："></a>事件处理程序注意点：</h3><ul>
-<li>DOM0级事件处理程序只能添加一个事件处理程序</li>
-<li>IE事件处理程序是全局运行的</li>
-</ul>
-<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h2><h3 id="event属性方法"><a href="#event属性方法" class="headerlink" title="event属性方法"></a>event属性方法</h3><ul>
-<li>event.currentTarget是事件处理程序被注册到的元素，等于this</li>
-<li>而event.target是事件的实际目标</li>
-<li>若需要用同一事件处理程序处理不同的事件，则可用event.type来分别处理</li>
-<li><p>stopPropagation（）方法用于立即停止事件在DOM层次中的传播，即取消进一步的事件捕获或者冒泡。例如：直接添加到一个按钮的时机处理程序可以调用stopPropagation（），从而避免触发注册在document.body上面的时间处理程序。</p>
-<pre><code>var btn = document.getElementById(&apos;btn&apos;);
-btn.onclick = function(event){
-    alert(&quot;clicked&quot;);
-    event.stopPropagation();
-};
-document.body.onclick = function(event)        {
-    alert(“body clicked”);
+                <p>参考《JavaScript Closures Demystified》<a href="https://www.sitepoint.com/javascript-closures-demystified/" target="_blank" rel="external">原文链接</a></p>
+<h3 id="First-Class-Function"><a href="#First-Class-Function" class="headerlink" title="First-Class Function"></a>First-Class Function</h3><p>在计算机语言中，方法或者函数被分为三个等级，其中一等函数就是可以被其他函数当做参数传递的，把这种一等函数当做一种类型一样传递给其他函数调用</p>
+<pre><code>var foo = function(){
+    alert(&apos;Hello World&apos;);
 }
-</code></pre></li>
+
+var bar = function(arg){
+    return     arg;
+}
+
+bar(foo)();
+</code></pre><p>此时的foo方法当作参数传递给bar方法，并且被返回，所以最后的<code>bar(foo)()</code>其实和<code>foo()</code>是一样的。</p>
+<h3 id="Inner-Functions"><a href="#Inner-Functions" class="headerlink" title="Inner Functions"></a>Inner Functions</h3><p>内部方法就像是私有方法一样，JavaScript中一切皆为对象，所以Inner Functions可以就像是对象的私有方法，外部函数每次被调用，都会有一个内部方法的实例生成。</p>
+<pre><code>function add (value1,value2){
+    function doAdd(operand1,operand2){
+        return operand1+operand;
+    }
+    return doAdd(value1,valude2);
+}
+var foo = add(1,2);
+</code></pre><p>内部方法最重要的一个特性就是可以访问其父函数作用域内的变量和参数等，所以改变以上代码</p>
+<pre><code>function add (value1,value2){
+    function doAdd(){
+        return value1+value2;
+    }
+    return doAdd();
+}
+var foo = add(1,2);
+</code></pre><h3 id="创建闭包"><a href="#创建闭包" class="headerlink" title="创建闭包"></a>创建闭包</h3><pre><code>function add (value1){
+    return function doAdd(value2){
+        return value1+value2;
+    };
+}
+var increment = add(1);
+var foo = increment(2);//3
+</code></pre><ul>
+<li>add函数将doAdd函数当做返回值，返回这个内部函数的时候，闭包就被创建了</li>
+<li>当add(1)执行的时候，会返回如下代码给increment变量</li>
+</ul>
+<p>###<br>    increment = function doAdd(value2){<br>        return 1 + value2;  /此时的value1=1被捆绑在第一个被加数上<br>    }</p>
+<h3 id="闭包的适用场景"><a href="#闭包的适用场景" class="headerlink" title="闭包的适用场景"></a>闭包的适用场景</h3><h4 id="使用定时器"><a href="#使用定时器" class="headerlink" title="使用定时器"></a>使用定时器</h4><p>setTimeout()和setInterval()可以通过参数传递</p>
+<h4 id="模拟私有变量"><a href="#模拟私有变量" class="headerlink" title="模拟私有变量"></a>模拟私有变量</h4><p>在JavaScript中没有私有变量的概念，也就是一个实例对象的属性可以随便修改，一个叫tom的</p>
+<pre><code>function Person(name) {
+  this._name = name;
+
+  this.getName = function() {
+    return this._name;
+  };
+}
+
+var person = new Person(&quot;Colin&quot;);
+
+person._name = &quot;Tom&quot;;
+person.getName() //returns &quot;Tom&quot;
+</code></pre><p>使用闭包可以模拟私有变量</p>
+<pre><code>function Person(name) {
+  var _name = name;
+
+  this.getName = function() {
+    return _name;
+  };
+}
+
+var person = new Person(&quot;Colin&quot;);
+
+person._name = &quot;Tom&quot;;
+person.getName(); //returns &quot;Colin&quot;
+person._name is &quot;Tom&quot; but person.getName() returns &quot;Colin&quot;
+</code></pre><h3 id="什么情况下不适合用闭包"><a href="#什么情况下不适合用闭包" class="headerlink" title="什么情况下不适合用闭包"></a>什么情况下不适合用闭包</h3><h4 id="不应该用在循环中"><a href="#不应该用在循环中" class="headerlink" title="不应该用在循环中"></a>不应该用在循环中</h4><pre><code>for (var i = 1; i &lt; 4; i++) {
+    var button = document.getElementById(&quot;button&quot; + i);
+
+    button.addEventListener(&quot;click&quot;, function() {
+         alert(&quot;Clicked button &quot; + i);
+    });
+}
+</code></pre><p>这种情况下当你点击按钮时，循环已经执行完了，i已经增到最终值，得不到预想结果</p>
+<pre><code>function getHandler(i) {
+  return function handler() {
+    alert(&quot;Clicked button &quot; + i);
+  };
+}
+for (var i = 1; i &lt; 4; i++) {
+    var button = document.getElementById(&quot;button&quot; + i);
+
+    button.addEventListener(&quot;click&quot;, getHandler(i));
+}
+</code></pre><p>修改成以上代码就可以得到预想结果了    </p>
+<h4 id="闭包不应该用在构造函数上"><a href="#闭包不应该用在构造函数上" class="headerlink" title="闭包不应该用在构造函数上"></a>闭包不应该用在构造函数上</h4><p>像下面这种情况，每次创建一个实例就会创建一个sayHello的方法</p>
+<pre><code>function Person(name) {
+  var _name = name;
+
+  this.getName = function() {
+    return _name;
+  };
+
+  this.sayHello = function() {
+    alert(&quot;Hello!&quot;);
+  };
+}
+</code></pre><p>这种情况下应该将sayHello放在构造函数的原型属性对象中，成为实例共享的方法</p>
+<h3 id="闭包的特点"><a href="#闭包的特点" class="headerlink" title="闭包的特点"></a>闭包的特点</h3><ul>
+<li>闭包是一个可以访问创建它的函数（父函数）作用域的一个函数</li>
+<li>闭包是被外部函数暴露给外部函数之外作用域的一个内部函数</li>
+<li>闭包可以被用来当做参数传递给回调函数</li>
+<li>闭包可以迷你私有作用域</li>
+<li>闭包不建议被滥用于构造函数中，建议将其添加到原型属性对象中</li>
 </ul>
 
                 <hr>
@@ -224,14 +287,14 @@ document.body.onclick = function(event)        {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/02/24/浏览器端缓存方法/" data-toggle="tooltip" data-placement="top"
+                        <a href="/2017/03/15/浅读websocket/" data-toggle="tooltip" data-placement="top"
                            title="">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/02/17/粒子群优化算法学习笔记/" data-toggle="tooltip" data-placement="top"
-                           title="粒子群优化算法学习笔记">Next Post &rarr;</a>
+                        <a href="/2017/03/14/JavaScript典型问题总结(二)/" data-toggle="tooltip" data-placement="top"
+                           title="">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -244,7 +307,7 @@ document.body.onclick = function(event)        {
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#IE事件处理程序"><span class="toc-text">IE事件处理程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨浏览器事件处理程序"><span class="toc-text">跨浏览器事件处理程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理程序注意点："><span class="toc-text">事件处理程序注意点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件对象"><span class="toc-text">事件对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#event属性方法"><span class="toc-text">event属性方法</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Class-Function"><span class="toc-text">First-Class Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inner-Functions"><span class="toc-text">Inner Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建闭包"><span class="toc-text">创建闭包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的适用场景"><span class="toc-text">闭包的适用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用定时器"><span class="toc-text">使用定时器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模拟私有变量"><span class="toc-text">模拟私有变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么情况下不适合用闭包"><span class="toc-text">什么情况下不适合用闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#不应该用在循环中"><span class="toc-text">不应该用在循环中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#闭包不应该用在构造函数上"><span class="toc-text">闭包不应该用在构造函数上</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的特点"><span class="toc-text">闭包的特点</span></a></li></ol>
                 </div>
             </div>
         </div>

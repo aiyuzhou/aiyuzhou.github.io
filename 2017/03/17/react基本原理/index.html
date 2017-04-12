@@ -22,7 +22,7 @@
         
     </title>
 
-    <link rel="canonical" href="https://aiyuzhou.github.io/2017/02/22/JavaScript事件/">
+    <link rel="canonical" href="https://aiyuzhou.github.io/2017/03/17/react基本原理/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -150,7 +150,7 @@
                     <span class="meta">
                          作者 Annie Chou
                         <span>
-                          日期 2017-02-22
+                          日期 2017-03-17
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -173,50 +173,33 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h3 id="IE事件处理程序"><a href="#IE事件处理程序" class="headerlink" title="IE事件处理程序"></a>IE事件处理程序</h3><ul>
-<li>IE实现了与DOM2级事件处理程序类似的两个方法：attachEvent（）和detachEvent（）。</li>
-<li>这两个方法接受相同的两个参数：事件处理程序名称与事件处理程序函数。</li>
-<li>通过attachEvent（）添加的事件处理程序都会被添加到冒泡阶段。</li>
-<li>而且attachEvent（）的第一个参数是”onclick”,”onload”等，而不是addEventListener（）方法中的第一个参数”click”</li>
-<li>在DOM0级方法下，事件处理程序会在其所属的作用域内运行；但IE事件处理程序会在全局作用域中运行，attachEvent（）中的this等于window。</li>
-<li><p>attachEvent（）为同一个按钮添加的两个不同事件处理程序的执行顺序与DOM方法中当好相反。</p>
-<pre><code>var btn = document.getElementById(&apos;btn&apos;);
-btn.attachEvent(&quot;onclick&quot;, function(){
-    alert(&quot;clicked&quot;);
-});
-btn.attachEvent(&quot;onclick&quot;, function(){
-    alert(&quot;Hello world&quot;);
-});
-</code></pre></li>
+                <p>原理</p>
+<h5 id="在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。"><a href="#在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。" class="headerlink" title="在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。"></a>在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。</h5><h5 id="React为此引入了虚拟DOM（Virtual-DOM）的机制：在浏览器端使用JavaScript实现了一套DOM-API。"><a href="#React为此引入了虚拟DOM（Virtual-DOM）的机制：在浏览器端使用JavaScript实现了一套DOM-API。" class="headerlink" title="React为此引入了虚拟DOM（Virtual DOM）的机制：在浏览器端使用JavaScript实现了一套DOM API。"></a>React为此引入了虚拟DOM（Virtual DOM）的机制：在浏览器端使用JavaScript实现了一套DOM API。</h5><ul>
+<li>基于React进行开发时所有的DOM构造都是通过虚拟DOM进行，每当数据变化时，React都会重新构建整个DOM树，然后React将当前整个DOM树与上次的DOM树进行对比，得到DOM结构的区别，然后仅仅将需要变化的部分进行实际的浏览器DOM更新。</li>
+<li>而且React能够批处理虚拟DOM的刷新，在一个事件循环内的两次数据变化会被合并，例如你连续的先将节点内容从A变成B，又从B变成A，react会认为UI没有发生变化，</li>
+<li>尽管每一次数据变化都需要构造完整的虚拟DOM树，但因为虚拟DOM是内存数据，性能是极高的，而对实际DOM进行操作的仅仅是diff部分，因而能达到提高性能的目的。</li>
+<li>这样，在保证性能的同时，开发者将不再需要关注某个数据的变化如何更新到具体的DOM元素，只需要关心任意数据状态下，整个界面是如何render的。</li>
 </ul>
+<p>组件化</p>
+<h5 id="所谓组件，就是分装起来具有独立功能的UI部件。"><a href="#所谓组件，就是分装起来具有独立功能的UI部件。" class="headerlink" title="所谓组件，就是分装起来具有独立功能的UI部件。"></a>所谓组件，就是分装起来具有独立功能的UI部件。</h5><p>react以组件的方式去思考UI构成，将UI上的每一个功能相对独立的模块定义成组件，然后将小的组件通过组合或者嵌套的方式构成大的组件，最终完成整体UI的构建。</p>
 <ul>
-<li>执行这段代码在IE中会首先看到“Hello world!”,然后才是“clicked”.</li>
-<li>而若是DOM事件处理程序，则是按照事件处理程序添加的顺序执行的，即先看到”clicked”,然后才是”Hello world！”</li>
-<li>对于detachEvent（）来说，和DOM方法中一样，只要将对相同函数的引用传给detachEvent（），就可以移除相应的事件处理程序。</li>
+<li>可组合：一个组件易于和其他组件组合在一起使用，或者嵌套在另一个组件内部，如果一个组件内部创建了另一个组件，那么父组件拥有它创建的子组件，通过这个特性，一个复杂的UI可以拆分成多个简单的UI组件；</li>
+<li>可重用：每个组件具有独立的功能，他可以被使用在UI场景；</li>
+<li>可维护：每个小组件仅仅包含自身的逻辑，更容易理解和维护。</li>
 </ul>
-<h3 id="跨浏览器事件处理程序"><a href="#跨浏览器事件处理程序" class="headerlink" title="跨浏览器事件处理程序"></a>跨浏览器事件处理程序</h3><p>编写跨浏览器的事件处理程序，只需要恰当的使用能力检测即可.</p>
-<ul>
-<li>首先会检测是否支持DOM2级事件处理程序，其次检测是否存在IE的方法，最后一种则是DOM0级方法。</li>
+<h3 id="组件属性"><a href="#组件属性" class="headerlink" title="组件属性"></a>组件属性</h3><ul>
+<li>获取属性的值，需要通过this.props</li>
+<li>创建组件的名称首字母必须大写</li>
+<li>为元素添加CSS的class时，需要用className</li>
+<li>组件的style属性的设置方式也值得注意，要写成style=</li>
 </ul>
-<h3 id="事件处理程序注意点："><a href="#事件处理程序注意点：" class="headerlink" title="事件处理程序注意点："></a>事件处理程序注意点：</h3><ul>
-<li>DOM0级事件处理程序只能添加一个事件处理程序</li>
-<li>IE事件处理程序是全局运行的</li>
+<h3 id="组件状态"><a href="#组件状态" class="headerlink" title="组件状态"></a>组件状态</h3><p>react将组件看做一个状态机，一开始有一个初始状态，每次状态变化触发重新渲染UI</p>
+<h3 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h3><ul>
+<li>mount：正在或者已经插入真实的DOM</li>
+<li>update：重新渲染</li>
+<li>unmount：已移除真实DOM</li>
 </ul>
-<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h2><h3 id="event属性方法"><a href="#event属性方法" class="headerlink" title="event属性方法"></a>event属性方法</h3><ul>
-<li>event.currentTarget是事件处理程序被注册到的元素，等于this</li>
-<li>而event.target是事件的实际目标</li>
-<li>若需要用同一事件处理程序处理不同的事件，则可用event.type来分别处理</li>
-<li><p>stopPropagation（）方法用于立即停止事件在DOM层次中的传播，即取消进一步的事件捕获或者冒泡。例如：直接添加到一个按钮的时机处理程序可以调用stopPropagation（），从而避免触发注册在document.body上面的时间处理程序。</p>
-<pre><code>var btn = document.getElementById(&apos;btn&apos;);
-btn.onclick = function(event){
-    alert(&quot;clicked&quot;);
-    event.stopPropagation();
-};
-document.body.onclick = function(event)        {
-    alert(“body clicked”);
-}
-</code></pre></li>
-</ul>
+<p>每个状态有两种处理函数，will在进入状态前调用，did在进入状态之后调用</p>
 
                 <hr>
                 
@@ -224,14 +207,14 @@ document.body.onclick = function(event)        {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/02/24/浏览器端缓存方法/" data-toggle="tooltip" data-placement="top"
+                        <a href="/2017/04/05/ES6/" data-toggle="tooltip" data-placement="top"
                            title="">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/02/17/粒子群优化算法学习笔记/" data-toggle="tooltip" data-placement="top"
-                           title="粒子群优化算法学习笔记">Next Post &rarr;</a>
+                        <a href="/2017/03/15/浅读websocket/" data-toggle="tooltip" data-placement="top"
+                           title="">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -244,7 +227,7 @@ document.body.onclick = function(event)        {
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#IE事件处理程序"><span class="toc-text">IE事件处理程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨浏览器事件处理程序"><span class="toc-text">跨浏览器事件处理程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理程序注意点："><span class="toc-text">事件处理程序注意点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件对象"><span class="toc-text">事件对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#event属性方法"><span class="toc-text">event属性方法</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。"><span class="toc-text">在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#React为此引入了虚拟DOM（Virtual-DOM）的机制：在浏览器端使用JavaScript实现了一套DOM-API。"><span class="toc-text">React为此引入了虚拟DOM（Virtual DOM）的机制：在浏览器端使用JavaScript实现了一套DOM API。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#所谓组件，就是分装起来具有独立功能的UI部件。"><span class="toc-text">所谓组件，就是分装起来具有独立功能的UI部件。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件属性"><span class="toc-text">组件属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件状态"><span class="toc-text">组件状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件生命周期"><span class="toc-text">组件生命周期</span></a>
                 </div>
             </div>
         </div>

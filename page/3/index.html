@@ -22,7 +22,7 @@
         
     </title>
 
-    <link rel="canonical" href="https://aiyuzhou.github.io/archives/page/2/">
+    <link rel="canonical" href="https://aiyuzhou.github.io/page/3/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -44,7 +44,7 @@
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
-" data-ishome = "false" >
+" data-ishome = "true" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
@@ -125,6 +125,126 @@
 <!-- Main Content -->
 
 
+<style>
+
+    .custom-haojen-container .post-preview:nth-of-type(1),
+    .custom-haojen-container .post-preview-poetry:nth-of-type(1) {
+        text-align: center;
+        background-repeat: no-repeat;
+        border-radius: 3px;
+        background-size: cover;
+        padding: 0;
+        height: 300px;
+        display: table;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.16);
+    }
+
+    /*去掉诗歌的背景图片*/
+    .custom-haojen-container .post-preview-poetry:nth-of-type(1) {
+        background-image: none !important;
+        background-color: rgba(255, 248, 220, 0.5);
+    }
+
+    .custom-haojen-container .post-preview:nth-child(1) h2,
+    .custom-haojen-container .post-preview:nth-child(1) .post-meta,
+    .custom-haojen-container .post-preview:nth-child(1) .post-subtitle {
+        text-shadow: 0 0 40px rgba(0, 0, 0, 1);
+        letter-spacing: 1px;
+        color: #fff;
+        margin-top: 0;
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+
+    .custom-haojen-container .post-preview:nth-child(1) .post-meta {
+        font-size: .9em;
+        font-weight: 300;
+        margin-top: 0;
+    }
+
+    .custom-haojen-container .post-preview-poetry:nth-child(1) .post-subtitle {
+        letter-spacing: 6px;
+        font-size: 18px;
+        font-family: unset;
+        font-weight: 400;
+        color: rgba(0, 0, 0, .75)
+    }
+
+    /*不显示摘要*/
+    .custom-haojen-container .post-preview:nth-child(1) .post-content-preview {
+        display: none
+    }
+
+    /*只第一个显示背景图片*/
+    .custom-haojen-container .post-preview:not(:nth-child(1)) {
+        background-image: none !important;
+    }
+
+    /*第一个分界线去掉*/
+    .custom-haojen-container hr:nth-of-type(1) {
+        display: none;
+    }
+
+    /*主题*/
+    .custom-haojen-container .post-preview:nth-of-type(1) > a {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    /*诗词标题*/
+    .custom-haojen-container .post-preview-poetry:nth-child(1) h2 {
+        font-size: 35px;
+        font-family: STKaiti;
+        color: rgba(0, 0, 0, .8);
+    }
+
+    .custom-haojen-container .post-preview-poetry:nth-of-type(1) .post-meta {
+        color: #0e2231;
+    }
+
+    @media (max-width: 768px) {
+        .custom-haojen-container .post-preview:nth-child(1) {
+            height: 240px;
+        }
+
+        .custom-haojen-container .post-preview-poetry:nth-child(1) h2 {
+            font-size: 28px !important;
+            margin-top: 0;
+        }
+
+        .custom-haojen-container .post-preview:nth-child(1) .post-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .custom-haojen-container .post-preview:nth-of-type(1) > a {
+            padding: 20px
+        }
+    }
+
+    /*手机屏幕*/
+    @media (max-width: 400px) {
+        .custom-haojen-container .post-preview:nth-child(1) {
+            height: 195px;
+        }
+
+        .custom-haojen-container .post-preview-poetry:nth-child(1) h2 {
+            font-size: 20px !important;
+        }
+
+        .custom-haojen-container .post-preview:nth-child(1) .post-subtitle {
+            font-size: 16px;
+        }
+
+        .custom-haojen-container .post-preview:nth-child(1) a {
+            padding: 30px 20px;
+        }
+    }
+</style>
+
 <!-- Page Header -->
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
     <div class="row">
@@ -153,179 +273,9 @@
 
 <div class="post-preview "
      style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2017/03/02/常见数据结构总结/">
+    <a href="/2016/12/16/H5-Animation-canvas百分比加载/">
         <h2 class="post-title">
-            未命名
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-03-02
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                数据结构是以某种形式将数据组织在一起的集合，它不仅存储数据，还支持访问和处理数据的操作。算法是为求解一个问题需要遵循的、被清楚指定的简单指令的集合。数据结构一、线性表线性表是最常用且最简单的一种数据结构，它是n个数据元素的有限序列。实现线性表的方式一般有两种，一种是使用数组存储线性表的元素，即用..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2017/02/24/xcode调试ionic项目/">
-        <h2 class="post-title">
-            未命名
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-24
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                ionic build ios出现Error：munger.add_config_changes is not a function原因可能是版本不匹配导致更新cordova：npm update -g cordova更新后：rm -r platforms &amp;&amp; rm -r pl..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2017/02/24/浏览器端缓存方法/">
-        <h2 class="post-title">
-            未命名
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-24
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                http缓存http缓存是基于http协议的浏览器文件级缓存机制。即针对文件的重复请求情况下，浏览器可以根据协议头判断服务器请求文件还是本地读取文件，chrome控制台下的frames中就是浏览器的http文件级缓存。以下是浏览器缓存的整个机制流程，主要是针对重复的http请求，在有缓存的情况下..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2017/02/22/JavaScript事件/">
-        <h2 class="post-title">
-            未命名
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-22
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                IE事件处理程序
-IE实现了与DOM2级事件处理程序类似的两个方法：attachEvent（）和detachEvent（）。
-这两个方法接受相同的两个参数：事件处理程序名称与事件处理程序函数。
-通过attachEvent（）添加的事件处理程序都会被添加到冒泡阶段。
-而且attachEvent（）..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2017/02/17/粒子群优化算法学习笔记/">
-        <h2 class="post-title">
-            粒子群优化算法学习笔记
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-17
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                粒子群优化算法原理：从随机解出发，通过迭代寻找最优解，也通过适应度来评价解的品质。PSO是一种随机的、并行的优化算法。PSO算法优点：
-不要求被优化函数具有可微、可导、连续等性质，收敛速度较快，算法简单，容易编程实现。
-
-PSO算法缺点：
-对于有多个局部极值点的函数，容易陷入到局部极值点中，得不..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2017/02/14/前端常见问题总结/">
-        <h2 class="post-title">
-            前端常见问题总结
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-14
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2017/02/14/手机端以及微信内置浏览器关于H5的开发遇到的问题/">
-        <h2 class="post-title">
-            手机端以及微信内置浏览器关于H5的开发遇到的问题
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-02-14
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                最近在开发一个H5页面，H5嘛都在微信中浏览，所以就神奇的入了微信内置浏览器的坑。
-其中有两页是两个视频，理想效果是在滑到那页时自动播放视频，最开始拿到的视频是mov格式，我知道本身H5就没有来支持这个格式，侥幸试了试，在我的手机上可以播放，但不能自动播放，强制点击后全屏播放，诶，我一查全是说i..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2016/12/16/bouncing1/">
-        <h2 class="post-title">
-            canvas实现小球的弹性碰撞
+            H5-Animation-canvas百分比加载
         </h2>
         <p class="post-meta">
             <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-16
@@ -333,9 +283,85 @@ PSO算法缺点：
         
         <div class="post-content-preview">
             <p>
-                写在最前面首先，代码源于supperjet源码: 小球碰撞运动效果图如下：写之前，想一个问题，如果我要写一个box内弹性碰撞的小球的动画，我应该从哪里入手。
+                首先，代码源于supperjet，我是边看代码边学习记笔记。源码: canvas百分比加载
+效果图是这样的:
+代码解析drawFrame(function drawFrame(){
+    window.requestAnimationFrame(drawFrame, canvas);
+    ..
+            </p>
+        </div>
+    </a>
 
-先从对象开始考虑，我需要定义ball和box两个对象，ball需要有大小，颜色，所在位置这些属性，box只需要有长宽属性，而在动画中ca..
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
+    <a href="/2016/12/15/写在最前面/">
+        <h2 class="post-title">
+            写在最前面
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-15
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                终于，我开始写博客了
+更新：为什么要写博客，我写博客的重要目的是记笔记，因为平时所谓的看懂了听懂了搞明白了，都是粗略的懂了，但是讲的时候很难讲清楚，我自己本来就有些不善表达，更准确的说是不善于组织语言，所以写博客记笔记的过程中其实是一个很好的思考过程，你要把问题说明白，这对自己来说我觉得是很大的..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
+    <a href="/2016/12/15/linux命令_chmod_755的含义/">
+        <h2 class="post-title">
+            linux命令 chmod 755的含义
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-15
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                linux命令 chmod 755的含义chmod是Linux下设置文件权限的命令，后面的数字表示不同用户或用户组的权限。一般是三个数字：第一个数字表示文件所有者的权限第二个数字表示与文件所有者同属一个用户组的其他用户的权限第三个数字表示其它用户组的权限。
+权限分为三种：读（r=4），写（w=2..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
+    <a href="/2016/12/15/angular学习笔记（一）——_创建自定义指令/">
+        <h2 class="post-title">
+            angular学习笔记（一）—— 创建自定义指令
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-15
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                angular学习笔记（一）—— 创建自定义指令使用驼峰法来命名一个指令， runoobDirective, 但在使用它时需要以 - 分割, runoob-directive:实例：    
+&lt;runoob-directive&gt;&lt;/runoob-directive&gt;
+
+&..
             </p>
         </div>
     </a>
@@ -352,13 +378,9 @@ PSO算法缺点：
 <ul class="pager">
     
     <li class="previous">
-        <a href="/archives/">&larr; Newer Posts</a>
+        <a href="/page/2/">&larr; Newer Posts</a>
     </li>
     
-    
-    <li class="next">
-        <a href="/archives/page/3/">Older Posts &rarr;</a>
-    </li>
     
 </ul>
 
