@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="javascript,html,css,前端,angular,react,ionic">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://oi7koh9y1.bkt.clouddn.com/headImg.jpg">
+    <link rel="alternate" type="application/atom+xml" title="Annie" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        JavaScript典型问题总结（二）｜Annie&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://aiyuzhou.github.io/2017/04/13/JavaScript典型问题总结（二）/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://oi7koh9y1.bkt.clouddn.com/backgroundImg2.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Annie
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>JavaScript典型问题总结（二）</h1>
+                    
+                    <span class="meta">
+                         作者 Annie Chou
+                        <span>
+                          日期 2017-04-13
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#javascript"
+                           title="javascript">javascript</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            JavaScript典型问题总结（二）
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="关于JavaScript作用域"><a href="#关于JavaScript作用域" class="headerlink" title="关于JavaScript作用域"></a>关于JavaScript作用域</h3><p>一、考虑以下代码的输出</p>
+<pre><code>(function(){
+    var a = b = 5;
+})
+console.log(b); //5
+</code></pre><p>问题解析：在立即执行函数表达式中，有两个赋值，但其中变量<code>a</code>使用关键词<code>var</code>来声明。意味着<code>a</code>是函数的局部变量。而<code>b</code>被分配给全局作用域</p>
+<p>但是需要注意的是：在严格模式（’use strict’）下，代码则会报错，b is not defined</p>
+<p>二、考虑以下代码的输出：可对照关于JavaScript参数传递的第二题</p>
+<pre><code>var flag = 0;
+function increase(){
+    flag++;
+}
+increase();
+console.log(flag); //1
+</code></pre><p>问题解析：在函数increase作用域之内可以访问到全局作用域的flag值，并且可以修改全局变量的值，所以flag的值递增为1</p>
+<h3 id="关于JavaScript参数传递"><a href="#关于JavaScript参数传递" class="headerlink" title="关于JavaScript参数传递"></a>关于JavaScript参数传递</h3><p>一、考虑以下代码的输出：可对照关于JavaScript作用域的第二题</p>
+<pre><code>var flag = 0;
+function increase(flag){
+    flag++;
+}
+increase();
+console.log(flag); //0
+</code></pre><p>问题解析：flag传入函数increase中赋值给函数内部变量flag，并且自加，但JavaScript中参数传递只是值传递，并非引用传递，所以外部flag不会变，还是0</p>
+<p>二、考虑以下代码的输出</p>
+<pre><code>var obj = {&quot;key&quot;:&quot;1&quot;,&quot;value&quot;:&quot;2&quot;};
+var newObj = obj;
+newObj.value += obj.key;
+alert(obj.value); //21
+</code></pre><p>这里首先要注意的是obj是对象，引用类型赋值时，实际上是指向同一个对象，所以newObj指向obj对象，当newObj属性value值变为‘21’时，obj的value也变为‘21’，这里也考察了字符串拼接直接可以用+运算实现</p>
+<h3 id="关于JavaScript中数组操作方法"><a href="#关于JavaScript中数组操作方法" class="headerlink" title="关于JavaScript中数组操作方法"></a>关于JavaScript中数组操作方法</h3><p>一、考虑以下代码输出</p>
+<pre><code>var a = [1,2,3,4,5];
+var b = a.splice(1,3,5,2,1);
+console.log(a);//[1,5,2,1,5]
+</code></pre><p>问题解析：</p>
+<ul>
+<li>分析splice的参数，第一项为1，表示从第1个参数开始</li>
+<li>第二个参数为3，表示要删除3项，结合第一个参数，表明从第一个位置开始删除3项元素</li>
+<li>之后的三个参数作为新元素将被添加在指定位置，结合第一个参数为1，表明在第一个位置添加这三项</li>
+</ul>
+<h3 id="关于JavaScript原型，继承，重写，扩展"><a href="#关于JavaScript原型，继承，重写，扩展" class="headerlink" title="关于JavaScript原型，继承，重写，扩展"></a>关于JavaScript原型，继承，重写，扩展</h3><p>一、在String对象上定义一个repeatify函数。这个函数接受一个整数参数，来表明字符串需要重复几次，例如：</p>
+<pre><code>console.log(&quot;hello&quot;.repeatify(3));
+//打印出来是hellohellohello
+</code></pre><h6 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h6><pre><code>String.prototype.repeatify = String.prototype.repeatify || function(times){
+    var str = &apos;&apos;;
+    for(var i = 0; i &lt; times; i++){
+        str += this;
+    }
+    return str;
+}
+</code></pre><p>这里既可以考察对JavaScript中继承及原型属性的了解，也可以考察到如何扩展JavaScript方法。扩展这个技术是非常重要的，避免重写可能已经定义的方法。</p>
+<p>二、手写一个js继承</p>
+<pre><code>function person(){
+    this.type = &quot;person&quot;;
+}
+
+function student(name){
+    person.apply(this,arguments);
+    this.name = name;
+}
+</code></pre><p>三、js继承中父类如果抛出异常如何解决？比如父类要求定长的参数，不满足时会抛出异常，此时如何处理？</p>
+<pre><code>function foo(){
+    if(arguments.length&gt;=5){
+        ...
+    }else{
+        throw new RangeError(&quot;参数长度不正确，请输入规定长度的参数...&quot;)
+    }
+}
+
+function sub(){
+    foo.apply(this,arguments)
+}
+
+//生成实例时，用try{}catch(error){}
+try{
+    var o = new sub();
+}catch(error){
+    throw new Error(父类出错...)
+}
+</code></pre><h3 id="关于JavaScript的函数提升，变量提升"><a href="#关于JavaScript的函数提升，变量提升" class="headerlink" title="关于JavaScript的函数提升，变量提升"></a>关于JavaScript的函数提升，变量提升</h3><p>一、执行以下代码输出结果</p>
+<pre><code>function test(){
+    console.log(a);
+    console.log(foo());
+
+    var a = 1;
+    function foo(){
+        return 2;
+    }
+}
+test(); //undefined 2
+</code></pre><p>问题解析：这里打印出来undefined和2是由于变量提升和函数提升，以上代码相当于</p>
+<pre><code>function test(){
+    var a;
+    function foo(){
+        return 2;
+    }
+    console.log(a);
+    console.log(foo());
+
+    a = 1;
+
+}
+test(); //undefined 2
+</code></pre><h6 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h6><ul>
+<li>变量提升：变量声明提升到它所在作用域的最开始部分，但只是提升变量声明，并没有赋值</li>
+</ul>
+<h6 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h6><ul>
+<li><p>在JavaScript中有两种创建函数的方法：函数声明式和函数字面量，而函数提升只针对函数声明</p>
+</li>
+<li><p>函数提升：将整个函数代码块提升到文件作用域或者文件最开始的位置</p>
+</li>
+</ul>
+<h3 id="关于JavaScript中this的工作方式"><a href="#关于JavaScript中this的工作方式" class="headerlink" title="关于JavaScript中this的工作方式"></a>关于JavaScript中this的工作方式</h3><p>详见：JavaScript典型问题（一）中的<code>JavaScript中的this</code>部分</p>
+<p>一、以下代码输出结果：</p>
+<pre><code>var name = &quot;window.name&quot;;
+var obj = {
+    name : &quot;obj.name&quot;,
+    props : {
+        name : &quot;obj.props.name&quot;,
+        getname : function(){
+            return this.name;
+        }
+    }
+}
+
+console.log(obj.props.getname()); //obj.props.name
+
+var test = obj.props.getname;
+console.log(test()); //window.name
+</code></pre><p>问题解析：this变量所指对象取决于——函数是如何被调用，而不是如何被定义，或者说this并不是被定义的，只是在函数执行时间内生成的一个执行调用该函数的对象的一个变量</p>
+<ul>
+<li>第一次输出obj.props.name，是因为调用getname函数的对象是obj.props这个属性对象，所以执行期间函数内部变量this指向obj.props对象，所以this.name的值为obj.props.name</li>
+<li>第二次输出window.name，是因为函数getname被赋值给test这个全局变量，而test变量是属于window对象的，所以执行期间函数内部变量this执行window对象，所以this.name的值为window.name</li>
+</ul>
+<p>二、针对上一题的代码，使其打印的值为obj.name</p>
+<pre><code>var name = &quot;window.name&quot;;
+var obj = {
+    name : &quot;obj.name&quot;,
+    props : {
+        name : &quot;obj.props.name&quot;,
+        getname : function(){
+            return this.name;
+        }
+    }
+}
+console.log(obj.props.getname.apply(obj));
+//或者
+// var test = obj.props.getname;
+// console.log(test.apply(obj));
+</code></pre><p>问题解析：由于JavaScript中的this指代对象取决于函数被调用的方式，this指代调用函数的对象，所以可用apply和call的特性，让函数在指定对象作用域内运行，即可得到指定对象的name值</p>
+<h3 id="关于JavaScript中的闭包"><a href="#关于JavaScript中的闭包" class="headerlink" title="关于JavaScript中的闭包"></a>关于JavaScript中的闭包</h3><p>一、考虑下面代码，如果我点击第一个和第四个按钮，控制台打印的数据是多少？为什么？</p>
+<pre><code>var nodes = document.getElementsByTagName(&apos;button&apos;);
+for(var i = 0; i &lt; nodes.length; i++){
+    nodes[i].addEventListener(&apos;click&apos;,function(){
+        console.log(&apos;You clicked element #&apos; + i);
+    }
+}
+</code></pre><p>问题解析，打印的始终是nodes.length</p>
+<p>二、针对上面问题，使得点击第n个按钮输出n-1</p>
+<ul>
+<li><p>使用立即执行函数表达式再创建一个闭包</p>
+<pre><code>var nodes = document.getElementsByTagName(&apos;button&apos;);
+for(var i = 0; i &lt; nodes.length; i++){
+    nodes[i].addEventListener(&apos;click&apos;,(function(i){
+        return function(){
+            console.log(&apos;You clicked element #&apos; + i);
+        }
+    })(i));
+}
+</code></pre></li>
+</ul>
+<p>问题解析：当立即执行函数传入i值会返回一个函数，并且函数的内容是固定的，传入0时，返回函数是</p>
+<pre><code>function(){
+    console.log(&apos;You clicked element #&apos; + 0);
+}
+</code></pre><p>并且被绑定在第i个节点nodes[i]上，所以点击时会得到预期的结果</p>
+<ul>
+<li><p>将函数移至循环外面，这种方法由下面的代码实现：</p>
+<pre><code>function handlerWrapper(i) {
+   return function() {
+      console.log(&apos;You clicked element #&apos; + i);
+   }
+}
+
+var nodes = document.getElementsByTagName(&apos;button&apos;);
+for (var i = 0; i &lt; nodes.length; i++) {
+   nodes[i].addEventListener(&apos;click&apos;, handlerWrapper(i));
+}
+</code></pre></li>
+</ul>
+<p>三、考虑以下代码的输出</p>
+<pre><code>function Foo(){
+     var i=0;
+     return function(){
+         document.write(i++);
+     }
+}
+var f1=Foo(),
+f2=Foo();
+f1(); //0
+f1(); //1
+f2(); //0
+</code></pre><p>问题解析：变量f1和f2都是外部函数返回的闭包，并且i都被绑定为数值1，所以首次执行均为0，f1第二次执行，因为闭包对外部函数变量的依赖导致i存储在内存中，所以i继续自加为1</p>
+<h3 id="关于JavaScript中的数据类型检测"><a href="#关于JavaScript中的数据类型检测" class="headerlink" title="关于JavaScript中的数据类型检测"></a>关于JavaScript中的数据类型检测</h3><h6 id="关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分"><a href="#关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分" class="headerlink" title="关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分"></a>关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分</h6><p>一、考虑如下代码的输出结果：</p>
+<pre><code>console.log(typeof null); //object
+console.log(typeof {});   //object
+console.log(typeof []);   //object
+console.log(typeof undefined); //undefined
+</code></pre><p>问题解析：</p>
+<ul>
+<li>JavaScript中简单数据类型有Undefined，Null，Boolean，Number，String，剩下的均是Object，是引用类型，</li>
+<li>而Undefined只有一个值undefined，所以检测undefined时Undefined类型，</li>
+<li>而Null只有一个值null，但它表示空对象的引用，所以检测结果是object，</li>
+<li>数组类型用typeof只能检测到是个对象，要准确检测是否为数组，课可以通过原型构造函数类型检测，<ul>
+<li>if([].constructor === Array){…}</li>
+<li>if([].<strong>proto</strong>.constructor === Array){…}</li>
+</ul>
+</li>
+<li>或者实例检测<ul>
+<li>if([] instanceof Array){…}</li>
+</ul>
+</li>
+</ul>
+<p>二、考虑以下代码的输出结果：</p>
+<pre><code>var a=&quot;undefined&quot;;
+var b=&quot;false&quot;;
+var c=&quot;&quot;;
+function assert(aVar){
+    if(aVar)     
+        alert(true);
+    else  
+        alert(false);
+}
+assert(a);
+assert(b);
+assert(c);
+</code></pre><p>详细见《JavaScript典型问题总结(一)》中JavaScript基本数据类型中Boolean的隐式转换。</p>
+<p>流控制语句会自动调用Boolean()对流控制语句括号内部分进行隐式转换，而字符串类型的转换过规则是，除了空字符串转换为false，其他非空字符串都转换为true。</p>
+<h3 id="关于JavaScript中的事件循环原理"><a href="#关于JavaScript中的事件循环原理" class="headerlink" title="关于JavaScript中的事件循环原理"></a>关于JavaScript中的事件循环原理</h3><p>一、分析以下代码的输出结果</p>
+<pre><code>function printing(){
+    console.log(1);
+    setTimeout(function(){console.log(2)},1000);
+    setTimeout(function(){console.log(3)},0);
+    console.log(4);
+}
+printing(); //1 4 3 2
+</code></pre><p>问题解析：浏览器有一个事件循环用于检查事件队列，处理延迟的事件、UI事件、Ajax回调以及定时器的回调。</p>
+<ul>
+<li>按照代码执行顺序，执行第一行，首先输出1</li>
+<li>紧接着执行第二行，则将定时器的回调事件处理程序放入事件队列中</li>
+<li>接下来执行第三行，虽然延迟时间设置为0，但依然会放入事件队列中排队，注意：此时虽然0秒时间已经过去了，但JavaScript还在执行别的动作，所以不会立即执行这个回调函数</li>
+<li>紧接着第四行输出4</li>
+<li>然后才去处理事件队列中的函数，由于第三行代码的回调函数等待时间0秒时间已经到了，所以先输出3，然后才输出2</li>
+</ul>
+<h3 id="简单算法的实现"><a href="#简单算法的实现" class="headerlink" title="简单算法的实现"></a>简单算法的实现</h3><p>注意事项：</p>
+<ul>
+<li>一定要仔细读题，看清楚测试用例的格式，比如有没有逗号（,）、有没有空格（ ）等等细节问题</li>
+<li>读题之后一定要先分析问题的特殊情况<ul>
+<li>比如，要不要检测参数类型</li>
+<li>有没有特殊值</li>
+<li>有没有什么方法可以节省运行时间等</li>
+</ul>
+</li>
+<li>然后才开始写程序</li>
+</ul>
+<p>一、写一个isPrime()函数，当其为质数时返回true，否则返回false</p>
+<p>分析问题：</p>
+<ul>
+<li>首先应该检测传入的值是否是一个数值型</li>
+<li>其次，分析质数的性质，质数的定义：一个只有1和本身的非负数两个因子<ul>
+<li>先检测是否是正负性，是否为1和0</li>
+<li>偶数除了2以外其他都不是质数</li>
+<li>奇数需要单独检测</li>
+</ul>
+</li>
+</ul>
+<p>实现代码如下：</p>
+<pre><code>function isPrime(num){
+    if(typeof(num)!==&quot;number&quot;) return;
+    if(num &lt; 2) return false;
+    if(num === 2) {
+        return true;
+    } else if(num%2 === 0) {
+        return false;
+    }
+    for(var i = 2; i &lt;= Math.sqrt(num); i++){
+        if(num%i === 0) return false;
+    }
+    return true;
+}
+</code></pre><h3 id="添加代码块"><a href="#添加代码块" class="headerlink" title="添加代码块"></a>添加代码块</h3><p>一、若要使得a.name = “name1”;b.name = “name2”，填写代码块1和代码块2</p>
+<pre><code>function obj(name){
+    if(name){ this.name = name;}return this;//代码块1
+}
+obj.prototype.name= &quot;name2&quot;; //prototype.name为代码块2
+var a = obj(&quot;name1&quot;);
+var b = new obj;
+</code></pre><h3 id="http请求头的connection-keep-alive是什么作用？与TCP的keep-alive的区别？"><a href="#http请求头的connection-keep-alive是什么作用？与TCP的keep-alive的区别？" class="headerlink" title="http请求头的connection:keep-alive是什么作用？与TCP的keep-alive的区别？"></a>http请求头的connection:keep-alive是什么作用？与TCP的keep-alive的区别？</h3><ul>
+<li>http协议采用“请求-应答”模式，当使用普通模式，即非keepalive模式时，每个请求/应答客户和服务器都要新建一个连接，完成之后立即断开连接（http协议为无连接的协议）</li>
+<li>当使用keep-alive模式（又称持久连接，连接重用）时，keep-alive功能使客户端到服务器的连接持续有效，当出现对服务器的后继请求时，keep-alive功能避免了建立或者重新建立连接。</li>
+<li>启用keep-alive的优点：<ul>
+<li>更高效，性能更高。</li>
+<li>避免了建立/释放连接的开销</li>
+</ul>
+</li>
+</ul>
+<p>### </p>
+<ul>
+<li>浏览器查找域名的IP地址，通过访问的域名找出其IP地址，DNS查找过程如下<ul>
+<li>浏览器缓存—浏览器会缓存DNS记录一段时间，但是没有标准，每个浏览器各自会存储固定的时间</li>
+<li>系统缓存—如果浏览器缓存里没有找到需要的记录，浏览器会做一个系统调用。这样便可以获得系统缓存中的记录。</li>
+<li>路由器缓存—接着，前面的查询请求发向路由器，路由器一般会有自己的DNS缓存。</li>
+<li>ISP DNS缓存—接下来要检查的就是ISP缓存DNS的服务器，在这次查询中一般都能找到相应的缓存记录。（ISP指的是互联网服务提供商）</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>浏览器给web服务器发送一个http请求</li>
+<li></li>
+</ul>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/04/13/ES6学习笔记/" data-toggle="tooltip" data-placement="top"
+                           title="ES6学习笔记">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/04/13/JavaScript典型问题总结（一）/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript典型问题总结（一）">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript作用域"><span class="toc-text">关于JavaScript作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript参数传递"><span class="toc-text">关于JavaScript参数传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中数组操作方法"><span class="toc-text">关于JavaScript中数组操作方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript原型，继承，重写，扩展"><span class="toc-text">关于JavaScript原型，继承，重写，扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#代码实现："><span class="toc-text">代码实现：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript的函数提升，变量提升"><span class="toc-text">关于JavaScript的函数提升，变量提升</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#变量提升"><span class="toc-text">变量提升</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#函数提升"><span class="toc-text">函数提升</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中this的工作方式"><span class="toc-text">关于JavaScript中this的工作方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中的闭包"><span class="toc-text">关于JavaScript中的闭包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中的数据类型检测"><span class="toc-text">关于JavaScript中的数据类型检测</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分"><span class="toc-text">关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中的事件循环原理"><span class="toc-text">关于JavaScript中的事件循环原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单算法的实现"><span class="toc-text">简单算法的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加代码块"><span class="toc-text">添加代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http请求头的connection-keep-alive是什么作用？与TCP的keep-alive的区别？"><span class="toc-text">http请求头的connection:keep-alive是什么作用？与TCP的keep-alive的区别？</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#javascript"
+                           title="javascript">javascript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://aiyuzhou.github.io/">Annie&#39; blog</a></li>
+                        
+                        <li><a href="https://aiyuzhou.github.io/">haha</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ben-xiao-niu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/喵喵小妞52221">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/aiyuzhou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Annie 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://aiyuzhou.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://oi7koh9y1.bkt.clouddn.com/headImg.jpg">
+</body>
+
+</html>

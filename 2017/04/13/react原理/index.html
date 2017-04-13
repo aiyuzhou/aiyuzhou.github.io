@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="javascript,html,css,前端,angular,react,ionic">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://oi7koh9y1.bkt.clouddn.com/headImg.jpg">
+    <link rel="alternate" type="application/atom+xml" title="Annie" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        react原理｜Annie&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://aiyuzhou.github.io/2017/04/13/react原理/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://oi7koh9y1.bkt.clouddn.com/backgroundImg2.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Annie
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>react原理</h1>
+                    
+                    <span class="meta">
+                         作者 Annie Chou
+                        <span>
+                          日期 2017-04-13
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#react原理"
+                           title="react原理">react原理</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            react原理
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h5 id="在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。"><a href="#在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。" class="headerlink" title="在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。"></a>在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。</h5><h5 id="React为此引入了虚拟DOM（Virtual-DOM）的机制：在浏览器端使用JavaScript实现了一套DOM-API。"><a href="#React为此引入了虚拟DOM（Virtual-DOM）的机制：在浏览器端使用JavaScript实现了一套DOM-API。" class="headerlink" title="React为此引入了虚拟DOM（Virtual DOM）的机制：在浏览器端使用JavaScript实现了一套DOM API。"></a>React为此引入了虚拟DOM（Virtual DOM）的机制：在浏览器端使用JavaScript实现了一套DOM API。</h5><ul>
+<li>基于React进行开发时所有的DOM构造都是通过虚拟DOM进行，每当数据变化时，React都会重新构建整个DOM树，然后React将当前整个DOM树与上次的DOM树进行对比，得到DOM结构的区别，然后仅仅将需要变化的部分进行实际的浏览器DOM更新。</li>
+<li>而且React能够批处理虚拟DOM的刷新，在一个事件循环内的两次数据变化会被合并，例如你连续的先将节点内容从A变成B，又从B变成A，react会认为UI没有发生变化，</li>
+<li>尽管每一次数据变化都需要构造完整的虚拟DOM树，但因为虚拟DOM是内存数据，性能是极高的，而对实际DOM进行操作的仅仅是diff部分，因而能达到提高性能的目的。</li>
+<li>这样，在保证性能的同时，开发者将不再需要关注某个数据的变化如何更新到具体的DOM元素，只需要关心任意数据状态下，整个界面是如何render的。</li>
+</ul>
+<p>组件化</p>
+<h5 id="所谓组件，就是分装起来具有独立功能的UI部件。"><a href="#所谓组件，就是分装起来具有独立功能的UI部件。" class="headerlink" title="所谓组件，就是分装起来具有独立功能的UI部件。"></a>所谓组件，就是分装起来具有独立功能的UI部件。</h5><p>react以组件的方式去思考UI构成，将UI上的每一个功能相对独立的模块定义成组件，然后将小的组件通过组合或者嵌套的方式构成大的组件，最终完成整体UI的构建。</p>
+<ul>
+<li>可组合：一个组件易于和其他组件组合在一起使用，或者嵌套在另一个组件内部，如果一个组件内部创建了另一个组件，那么父组件拥有它创建的子组件，通过这个特性，一个复杂的UI可以拆分成多个简单的UI组件；</li>
+<li>可重用：每个组件具有独立的功能，他可以被使用在UI场景；</li>
+<li>可维护：每个小组件仅仅包含自身的逻辑，更容易理解和维护。</li>
+</ul>
+<h3 id="组件属性"><a href="#组件属性" class="headerlink" title="组件属性"></a>组件属性</h3><ul>
+<li>获取属性的值，需要通过this.props</li>
+<li>创建组件的名称首字母必须大写</li>
+<li>为元素添加CSS的class时，需要用className</li>
+<li>组件的style属性的设置方式也值得注意，要写成style=</li>
+</ul>
+<h3 id="组件状态"><a href="#组件状态" class="headerlink" title="组件状态"></a>组件状态</h3><p>react将组件看做一个状态机，一开始有一个初始状态，每次状态变化触发重新渲染UI</p>
+<h3 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h3><ul>
+<li>mount：正在或者已经插入真实的DOM</li>
+<li>update：重新渲染</li>
+<li>unmount：已移除真实DOM</li>
+</ul>
+<p>每个状态有两种处理函数，will在进入状态前调用，did在进入状态之后调用</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/04/13/JavaScript事件-区别IE事件和DOM事件/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript事件-区别IE事件和DOM事件">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。"><span class="toc-text">在普通web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#React为此引入了虚拟DOM（Virtual-DOM）的机制：在浏览器端使用JavaScript实现了一套DOM-API。"><span class="toc-text">React为此引入了虚拟DOM（Virtual DOM）的机制：在浏览器端使用JavaScript实现了一套DOM API。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#所谓组件，就是分装起来具有独立功能的UI部件。"><span class="toc-text">所谓组件，就是分装起来具有独立功能的UI部件。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件属性"><span class="toc-text">组件属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件状态"><span class="toc-text">组件状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件生命周期"><span class="toc-text">组件生命周期</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#react原理"
+                           title="react原理">react原理</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://aiyuzhou.github.io/">Annie&#39; blog</a></li>
+                        
+                        <li><a href="https://aiyuzhou.github.io/">haha</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ben-xiao-niu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/喵喵小妞52221">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/aiyuzhou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Annie 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://aiyuzhou.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://oi7koh9y1.bkt.clouddn.com/headImg.jpg">
+</body>
+
+</html>
