@@ -481,8 +481,7 @@ var b = new obj;
 </ul>
 </li>
 </ul>
-<p>### </p>
-<ul>
+<h3 id="从输入URL到显示页面的过程"><a href="#从输入URL到显示页面的过程" class="headerlink" title="从输入URL到显示页面的过程"></a>从输入URL到显示页面的过程</h3><ul>
 <li>浏览器查找域名的IP地址，通过访问的域名找出其IP地址，DNS查找过程如下<ul>
 <li>浏览器缓存—浏览器会缓存DNS记录一段时间，但是没有标准，每个浏览器各自会存储固定的时间</li>
 <li>系统缓存—如果浏览器缓存里没有找到需要的记录，浏览器会做一个系统调用。这样便可以获得系统缓存中的记录。</li>
@@ -493,8 +492,23 @@ var b = new obj;
 </ul>
 <ul>
 <li>浏览器给web服务器发送一个http请求</li>
-<li></li>
+<li>请求网址服务器的永久重定向</li>
+<li>浏览器跟踪重定向地址</li>
+<li>服务器“处理”请求</li>
+<li>服务器返回一个HTML响应</li>
+<li>浏览器开始显示HTML</li>
+<li>浏览器发送获取请求来活动一些嵌入的文件</li>
 </ul>
+<h3 id="cookie、localStorage、sessionStorage"><a href="#cookie、localStorage、sessionStorage" class="headerlink" title="cookie、localStorage、sessionStorage"></a>cookie、localStorage、sessionStorage</h3><h4 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h4><ul>
+<li>每个cookie都是一个名/值对，要一次性存储多个cookie需要用分号隔开。</li>
+<li>如果值中不可避免的使用；，=以及空格，则需要用escape函数进行编码，读取时用unescape来解码</li>
+<li>可设置有效时间，用expires字段保存，所以若要删除一个cookie将其expires字段设置为一个过去的时间即可，若不设定过期时间，即当浏览器关闭时cookie自动消失。</li>
+</ul>
+<h4 id="缺点：cookie为持久化存储提供了方便，分担了服务器存储的负担，但还是有很多局限性的："><a href="#缺点：cookie为持久化存储提供了方便，分担了服务器存储的负担，但还是有很多局限性的：" class="headerlink" title="缺点：cookie为持久化存储提供了方便，分担了服务器存储的负担，但还是有很多局限性的："></a>缺点：cookie为持久化存储提供了方便，分担了服务器存储的负担，但还是有很多局限性的：</h4><ul>
+<li>‘cookie’数量和长度的限制，每个domain最多可以有20条cookie，每个cookie长度不能超过4kb，否则会被截掉</li>
+</ul>
+<h4 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h4><p>sessionStorage是针对一个session进行数据存储，当用户关闭浏览器窗口后，数据会被删除。</p>
+<h4 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h4><p>localStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。</p>
 
                 <hr>
                 
@@ -522,7 +536,7 @@ var b = new obj;
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript作用域"><span class="toc-text">关于JavaScript作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript参数传递"><span class="toc-text">关于JavaScript参数传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中数组操作方法"><span class="toc-text">关于JavaScript中数组操作方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript原型，继承，重写，扩展"><span class="toc-text">关于JavaScript原型，继承，重写，扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#代码实现："><span class="toc-text">代码实现：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript的函数提升，变量提升"><span class="toc-text">关于JavaScript的函数提升，变量提升</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#变量提升"><span class="toc-text">变量提升</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#函数提升"><span class="toc-text">函数提升</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中this的工作方式"><span class="toc-text">关于JavaScript中this的工作方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中的闭包"><span class="toc-text">关于JavaScript中的闭包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中的数据类型检测"><span class="toc-text">关于JavaScript中的数据类型检测</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分"><span class="toc-text">关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中的事件循环原理"><span class="toc-text">关于JavaScript中的事件循环原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单算法的实现"><span class="toc-text">简单算法的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加代码块"><span class="toc-text">添加代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http请求头的connection-keep-alive是什么作用？与TCP的keep-alive的区别？"><span class="toc-text">http请求头的connection:keep-alive是什么作用？与TCP的keep-alive的区别？</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript作用域"><span class="toc-text">关于JavaScript作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript参数传递"><span class="toc-text">关于JavaScript参数传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中数组操作方法"><span class="toc-text">关于JavaScript中数组操作方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript原型，继承，重写，扩展"><span class="toc-text">关于JavaScript原型，继承，重写，扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#代码实现："><span class="toc-text">代码实现：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript的函数提升，变量提升"><span class="toc-text">关于JavaScript的函数提升，变量提升</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#变量提升"><span class="toc-text">变量提升</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#函数提升"><span class="toc-text">函数提升</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中this的工作方式"><span class="toc-text">关于JavaScript中this的工作方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中的闭包"><span class="toc-text">关于JavaScript中的闭包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中的数据类型检测"><span class="toc-text">关于JavaScript中的数据类型检测</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分"><span class="toc-text">关于检测数据类型以及各种检测方法，详见JavaScript典型问题总结（一）中JavaScript数据类型检测部分</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于JavaScript中的事件循环原理"><span class="toc-text">关于JavaScript中的事件循环原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单算法的实现"><span class="toc-text">简单算法的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加代码块"><span class="toc-text">添加代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http请求头的connection-keep-alive是什么作用？与TCP的keep-alive的区别？"><span class="toc-text">http请求头的connection:keep-alive是什么作用？与TCP的keep-alive的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从输入URL到显示页面的过程"><span class="toc-text">从输入URL到显示页面的过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cookie、localStorage、sessionStorage"><span class="toc-text">cookie、localStorage、sessionStorage</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie"><span class="toc-text">cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缺点：cookie为持久化存储提供了方便，分担了服务器存储的负担，但还是有很多局限性的："><span class="toc-text">缺点：cookie为持久化存储提供了方便，分担了服务器存储的负担，但还是有很多局限性的：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sessionStorage"><span class="toc-text">sessionStorage</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#localStorage"><span class="toc-text">localStorage</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>

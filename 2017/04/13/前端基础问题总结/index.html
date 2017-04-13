@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="javascript,html,css,前端,angular,react,ionic">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="http://oi7koh9y1.bkt.clouddn.com/headImg.jpg">
+    <link rel="alternate" type="application/atom+xml" title="Annie" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        前端基础问题总结｜Annie&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="https://aiyuzhou.github.io/2017/04/13/前端基础问题总结/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://oi7koh9y1.bkt.clouddn.com/backgroundImg2.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Annie
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>前端基础问题总结</h1>
+                    
+                    <span class="meta">
+                         作者 Annie Chou
+                        <span>
+                          日期 2017-04-13
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#javascript"
+                           title="javascript">javascript</a>
+                        
+                        <a class="tag" href="/tags/#css"
+                           title="css">css</a>
+                        
+                        <a class="tag" href="/tags/#html"
+                           title="html">html</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            前端基础问题总结
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="css相关问题"><a href="#css相关问题" class="headerlink" title="css相关问题"></a>css相关问题</h2><h4 id="一、display：none和visibility：hidden的区别？"><a href="#一、display：none和visibility：hidden的区别？" class="headerlink" title="一、display：none和visibility：hidden的区别？"></a>一、display：none和visibility：hidden的区别？</h4><ul>
+<li>display：none 是隐藏对应的元素，在文档布局中不再给它分配空间</li>
+<li>visibility：hidden 隐藏相应元素，但是文档流中位置保存</li>
+</ul>
+<h4 id="二、CSS中link和-import的区别？"><a href="#二、CSS中link和-import的区别？" class="headerlink" title="二、CSS中link和@import的区别？"></a>二、CSS中link和@import的区别？</h4><ul>
+<li>link<ul>
+<li>属于HTML标签</li>
+<li>页面加载时，link会同时被加载</li>
+<li>无兼容性问题</li>
+</ul>
+</li>
+<li>@import<ul>
+<li>是CSS提供的标签</li>
+<li>在页面加载完成后才加载@import引用的CSS文件</li>
+<li>只有在IE5以上才可用，低于IE5不兼容</li>
+</ul>
+</li>
+</ul>
+<h4 id="三、IE盒模型和标准W3C盒模型"><a href="#三、IE盒模型和标准W3C盒模型" class="headerlink" title="三、IE盒模型和标准W3C盒模型"></a>三、IE盒模型和标准W3C盒模型</h4><ul>
+<li>标准W3C盒模型：<ul>
+<li>包括margin、border、padding、content，并且content不包含其他部分</li>
+<li>content的width = width</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://oi7koh9y1.bkt.clouddn.com/%E6%A0%87%E5%87%86%E7%9B%92%E6%A8%A1%E5%9E%8B.JPG" alt="标准盒子模型"></p>
+<ul>
+<li>IE盒模型：<ul>
+<li>也包括margin、border、padding、content，但是content包括border和padding</li>
+<li>content的width = width + padding + border</li>
+</ul>
+</li>
+</ul>
+<h4 id="四、CSS选择符有哪些？"><a href="#四、CSS选择符有哪些？" class="headerlink" title="四、CSS选择符有哪些？"></a>四、CSS选择符有哪些？</h4><ul>
+<li>id选择器(#myid)</li>
+<li>类选择器(.myclassname)</li>
+<li>标签选择器(div,h1,p)</li>
+<li>相邻选择器(h1 + p)</li>
+<li>子选择器(ul &gt; li)</li>
+<li>后代选择器(li a)</li>
+<li>通配符选择器(*)</li>
+<li>属性选择器(a[rel = “external”])</li>
+<li>伪类选择器(a:hover,li:nth-child)</li>
+</ul>
+<h4 id="五、CSS可继承的属性"><a href="#五、CSS可继承的属性" class="headerlink" title="五、CSS可继承的属性"></a>五、CSS可继承的属性</h4><ul>
+<li>font-size</li>
+<li>font-family</li>
+<li>color</li>
+<li>text-intent</li>
+</ul>
+<h4 id="六、CSS不可继承的属性"><a href="#六、CSS不可继承的属性" class="headerlink" title="六、CSS不可继承的属性"></a>六、CSS不可继承的属性</h4><ul>
+<li>border</li>
+<li>padding</li>
+<li>margin</li>
+<li>width</li>
+<li>height</li>
+</ul>
+<h4 id="七、CSS优先级"><a href="#七、CSS优先级" class="headerlink" title="七、CSS优先级"></a>七、CSS优先级</h4><p>! important &gt; id &gt; class &gt; tag</p>
+<h4 id="八、CSS3新增的伪类"><a href="#八、CSS3新增的伪类" class="headerlink" title="八、CSS3新增的伪类"></a>八、CSS3新增的伪类</h4><ul>
+<li>:first-child选择某个元素的第一个子元素；</li>
+<li>:last-child选择某个元素的最后一个子元素；</li>
+<li>:nth-child()选择某个元素的一个或多个特定的子元素；</li>
+<li>:nth-last-child()选择某个元素的一个或多个特定的子元素，从这个元素的最后一个子元素开始算；</li>
+<li>:nth-of-type()选择指定的元素；</li>
+<li>:nth-last-of-type()选择指定的元素，从元素的最后一个开始计算；</li>
+<li>:first-of-type选择一个上级元素下的第一个同类子元素；</li>
+<li>:last-of-type选择一个上级元素的最后一个同类子元素；</li>
+<li>:only-child选择的元素是它的父元素的唯一一个了元素；</li>
+<li>:only-of-type选择一个元素是它的上级元素的唯一一个相同类型的子元素；</li>
+<li>:empty选择的元素里面没有任何内容。</li>
+</ul>
+<h4 id="九、为什么要初始化CSS样式"><a href="#九、为什么要初始化CSS样式" class="headerlink" title="九、为什么要初始化CSS样式"></a>九、为什么要初始化CSS样式</h4><p>因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没有对CSS初始化，往往不同的浏览器之间的页面显示差异。</p>
+<h4 id="十、BFC-块级格式化上下文"><a href="#十、BFC-块级格式化上下文" class="headerlink" title="十、BFC:块级格式化上下文"></a>十、BFC:块级格式化上下文</h4><ul>
+<li>根元素</li>
+<li>float属性不为none</li>
+<li>position为absolute或fixed</li>
+<li>display为inline-block,table-cell,table-caption,flex,inline-flex</li>
+<li>overflow不为visible</li>
+</ul>
+<p>在一个BFC的盒子内的子元素的样式不会影响到外面的元素，并且同一个BFC中的两个相邻的块级盒在垂直方向(和布局方向有关系)的margin会发生折叠。</p>
+<h4 id="十一、CSS-sprite（CSS精灵）"><a href="#十一、CSS-sprite（CSS精灵）" class="headerlink" title="十一、CSS sprite（CSS精灵）"></a>十一、CSS sprite（CSS精灵）</h4><h5 id="图像精灵—是放入一张单独的图片中的一系列图像。"><a href="#图像精灵—是放入一张单独的图片中的一系列图像。" class="headerlink" title="图像精灵—是放入一张单独的图片中的一系列图像。"></a>图像精灵—是放入一张单独的图片中的一系列图像。</h5><h5 id="大量包含图像的网页需要更长的时间来下载，同时会生成多个服务器请求。"><a href="#大量包含图像的网页需要更长的时间来下载，同时会生成多个服务器请求。" class="headerlink" title="大量包含图像的网页需要更长的时间来下载，同时会生成多个服务器请求。"></a>大量包含图像的网页需要更长的时间来下载，同时会生成多个服务器请求。</h5><h5 id="使用图像精灵将减少服务器请求数量并节约带宽。虽然请求可以并发，但是也有限制，一般浏览器都是6个。"><a href="#使用图像精灵将减少服务器请求数量并节约带宽。虽然请求可以并发，但是也有限制，一般浏览器都是6个。" class="headerlink" title="使用图像精灵将减少服务器请求数量并节约带宽。虽然请求可以并发，但是也有限制，一般浏览器都是6个。"></a>使用图像精灵将减少服务器请求数量并节约带宽。虽然请求可以并发，但是也有限制，一般浏览器都是6个。</h5><p>我们将通过CSS的<code>background-image</code>,<code>background-repeat</code>,<code>background-position</code>的组合进行背景定位。</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/04/13/CSS常见问题总结/" data-toggle="tooltip" data-placement="top"
+                           title="CSS常见问题总结">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/04/13/react原理/" data-toggle="tooltip" data-placement="top"
+                           title="react原理">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#css相关问题"><span class="toc-text">css相关问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、display：none和visibility：hidden的区别？"><span class="toc-text">一、display：none和visibility：hidden的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、CSS中link和-import的区别？"><span class="toc-text">二、CSS中link和@import的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三、IE盒模型和标准W3C盒模型"><span class="toc-text">三、IE盒模型和标准W3C盒模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四、CSS选择符有哪些？"><span class="toc-text">四、CSS选择符有哪些？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五、CSS可继承的属性"><span class="toc-text">五、CSS可继承的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#六、CSS不可继承的属性"><span class="toc-text">六、CSS不可继承的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#七、CSS优先级"><span class="toc-text">七、CSS优先级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#八、CSS3新增的伪类"><span class="toc-text">八、CSS3新增的伪类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#九、为什么要初始化CSS样式"><span class="toc-text">九、为什么要初始化CSS样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#十、BFC-块级格式化上下文"><span class="toc-text">十、BFC:块级格式化上下文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#十一、CSS-sprite（CSS精灵）"><span class="toc-text">十一、CSS sprite（CSS精灵）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#图像精灵—是放入一张单独的图片中的一系列图像。"><span class="toc-text">图像精灵—是放入一张单独的图片中的一系列图像。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#大量包含图像的网页需要更长的时间来下载，同时会生成多个服务器请求。"><span class="toc-text">大量包含图像的网页需要更长的时间来下载，同时会生成多个服务器请求。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用图像精灵将减少服务器请求数量并节约带宽。虽然请求可以并发，但是也有限制，一般浏览器都是6个。"><span class="toc-text">使用图像精灵将减少服务器请求数量并节约带宽。虽然请求可以并发，但是也有限制，一般浏览器都是6个。</span></a></li></ol></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#javascript"
+                           title="javascript">javascript</a>
+                        
+                        <a class="tag" href="/tags/#css"
+                           title="css">css</a>
+                        
+                        <a class="tag" href="/tags/#html"
+                           title="html">html</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="https://aiyuzhou.github.io/">Annie&#39; blog</a></li>
+                        
+                        <li><a href="https://aiyuzhou.github.io/">haha</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ben-xiao-niu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/喵喵小妞52221">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/aiyuzhou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Annie 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://aiyuzhou.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://oi7koh9y1.bkt.clouddn.com/headImg.jpg">
+</body>
+
+</html>
