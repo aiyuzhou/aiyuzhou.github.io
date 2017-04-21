@@ -22,7 +22,7 @@
         
     </title>
 
-    <link rel="canonical" href="https://aiyuzhou.github.io/archives/2016/">
+    <link rel="canonical" href="https://aiyuzhou.github.io/tags/css布局/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="true
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -153,120 +153,19 @@
 
 <div class="post-preview "
      style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2016/12/16/bouncing1/">
+    <a href="/2017/04/21/flex布局/">
         <h2 class="post-title">
-            canvas实现小球的弹性碰撞
+            flex布局
         </h2>
         <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-16
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-04-21
         </p>
         
         <div class="post-content-preview">
             <p>
-                写在最前面首先，代码源于supperjet源码: 小球碰撞运动效果图如下：写之前，想一个问题，如果我要写一个box内弹性碰撞的小球的动画，我应该从哪里入手。
-
-先从对象开始考虑，我需要定义ball和box两个对象，ball需要有大小，颜色，所在位置这些属性，box只需要有长宽属性，而在动画中ca..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2016/12/16/H5-Animation-canvas百分比加载/">
-        <h2 class="post-title">
-            H5-Animation-canvas百分比加载
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-16
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                首先，代码源于supperjet，我是边看代码边学习记笔记。源码: canvas百分比加载
-效果图是这样的:
-代码解析drawFrame(function drawFrame(){
-    window.requestAnimationFrame(drawFrame, canvas);
-    ..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2016/12/15/写在最前面/">
-        <h2 class="post-title">
-            写在最前面
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-15
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                终于，我开始写博客了
-更新：为什么要写博客，我写博客的重要目的是记笔记，因为平时所谓的看懂了听懂了搞明白了，都是粗略的懂了，但是讲的时候很难讲清楚，我自己本来就有些不善表达，更准确的说是不善于组织语言，所以写博客记笔记的过程中其实是一个很好的思考过程，你要把问题说明白，这对自己来说我觉得是很大的..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2016/12/15/linux命令_chmod_755的含义/">
-        <h2 class="post-title">
-            linux命令 chmod 755的含义
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-15
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                linux命令 chmod 755的含义chmod是Linux下设置文件权限的命令，后面的数字表示不同用户或用户组的权限。一般是三个数字：第一个数字表示文件所有者的权限第二个数字表示与文件所有者同属一个用户组的其他用户的权限第三个数字表示其它用户组的权限。
-权限分为三种：读（r=4），写（w=2..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2016/12/15/angular学习笔记（一）——_创建自定义指令/">
-        <h2 class="post-title">
-            angular学习笔记（一）—— 创建自定义指令
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-12-15
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                angular学习笔记（一）—— 创建自定义指令使用驼峰法来命名一个指令， runoobDirective, 但在使用它时需要以 - 分割, runoob-directive:实例：    
-&lt;runoob-directive&gt;&lt;/runoob-directive&gt;
-
-&..
+                原文链接：Flex布局-阮一峰老师
+在今天之前，我有用过flex这个新属性，但是时间一久就会忘记box属性有哪些，item属性有哪些，等到用的时候又得去查，索性今天刚好又用到了，就总结一下吧。
+一、Flex布局是什么？Flex是Flexible Box的缩写，即为弹性布局，这也正是我们前端很多时..
             </p>
         </div>
     </a>
