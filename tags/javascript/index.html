@@ -22,7 +22,7 @@
         
     </title>
 
-    <link rel="canonical" href="https://aiyuzhou.github.io/tags/JavaScript/">
+    <link rel="canonical" href="https://aiyuzhou.github.io/tags/javascript/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -153,9 +153,9 @@
 
 <div class="post-preview "
      style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
-    <a href="/2017/04/13/JavaScript典型问题总结（一）/">
+    <a href="/2017/04/13/前端基础问题总结/">
         <h2 class="post-title">
-            JavaScript典型问题总结（一）
+            前端基础问题总结
         </h2>
         <p class="post-meta">
             <i class="fa fa-calendar" aria-hidden="true"></i> 2017-04-13
@@ -163,10 +163,42 @@
         
         <div class="post-content-preview">
             <p>
-                JavaScript数据类型JavaScript检测类型检测数据类型有typeof、instanceof等方式
+                css相关问题一、display：none和visibility：hidden的区别？
+display：none 是隐藏对应的元素，在文档布局中不再给它分配空间
+visibility：hidden 隐藏相应元素，但是文档流中位置保存
 
-typeof是检测字符串、数值、布尔值还有undefined的最佳工具，还可以检测function类型，并且typeof返回值都是字符串形式，
-var str = &quot;hhh..
+二、CSS中link和@import的区别？
+link
+属于..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('http://oi7koh9y1.bkt.clouddn.com/defaultImg.jpg')">
+    <a href="/2017/04/13/JavaScript典型问题总结（二）/">
+        <h2 class="post-title">
+            JavaScript典型问题总结（二）
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-04-13
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                关于JavaScript作用域一、考虑以下代码的输出
+(function(){
+    var a = b = 5;
+})
+console.log(b); //5
+问题解析：在立即执行函数表达式中，有两个赋值，但其中变量a使用关键词var来声明。意味着a是函数的局部变量。而b被分配给全局作用域
+..
             </p>
         </div>
     </a>
@@ -457,36 +489,6 @@ var str = &quot;hhh..
 <!--fastClick.js -->
 <script>
     async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-<!-- Google Analytics -->
-
-
-
-<!-- Baidu Tongji -->
-
-
-<!-- swiftype -->
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install','null','2.0.0');
-</script>
-
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-<!--wechat title img-->
-<img class="wechat-title-img" src="http://oi7koh9y1.bkt.clouddn.com/headImg.jpg">
-</body>
-
-</html>
-ss.com/fastclick/1.0.6/fastclick.min.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })
