@@ -85,6 +85,14 @@
 							
 						
                     
+                        
+							
+                        <li>
+                            <a href="/bable/">bable</a>
+                        </li>
+							
+						
+                    
 
 					
                 </ul>
@@ -327,7 +335,7 @@ static int[] merge(int[] list1, int[] list2) {
 }
 </code></pre><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>算法思想：在待排序的序列中选择一个称为主元的元素，将数组分为两部分，使得第一部分中的所有元素都小于或等于主元，而第二部分的所有元素都大于主元，然后对两部分递归进行快速排序</p>
 <p>快排中需要注意：比较关键的一个部分是主元的选择</p>
-<pre><code>// 快速排序
+<h4 id="java实现"><a href="#java实现" class="headerlink" title="java实现"></a>java实现</h4><pre><code>// 快速排序
 static void funQuickSort(int[] mdata, int start, int end) {
     if (end &gt; start) {
         int pivotIndex = quickSortPartition(mdata, start, end);
@@ -372,6 +380,22 @@ static int quickSortPartition(int[] list, int first, int last) {
         return first;
     }
 }
+</code></pre><h4 id="javascript实现"><a href="#javascript实现" class="headerlink" title="javascript实现"></a>javascript实现</h4><pre><code>var quickSort = function(arr) {
+　　if (arr.length &lt;= 1) { return arr; }
+　　var pivotIndex = Math.floor(arr.length / 2);
+　　var pivot = arr.splice(pivotIndex, 1)[0];
+　　var left = [];
+　　var right = [];
+　　for (var i = 0; i &lt; arr.length; i++){
+　　　　if (arr[i] &lt; pivot) {
+　　　　　　left.push(arr[i]);
+　　　　} else {
+　　　　　　right.push(arr[i]);
+　　　　}
+　　}
+　　
+　　return quickSort(left).concat([pivot], quickSort(right));
+};
 </code></pre><h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>堆的定义：n个关键字序列K1，K2，…，Kn称为堆，当且仅当该序列满足如下性质：</p>
 <ul>
 <li>ki &lt;= k(2i)且ki &lt;= k(2i+1)(1&lt;=i&lt;=n/2) 满足该性质称之为小顶堆</li>
@@ -407,7 +431,7 @@ static int quickSortPartition(int[] list, int first, int last) {
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#衡量一个算法的优劣："><span class="toc-text">衡量一个算法的优劣：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查找算法"><span class="toc-text">查找算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、顺序查找"><span class="toc-text">一、顺序查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、二分查找"><span class="toc-text">二、二分查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、二叉树查找"><span class="toc-text">三、二叉树查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、分块查找"><span class="toc-text">四、分块查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、哈希查找"><span class="toc-text">五、哈希查找</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序算法"><span class="toc-text">排序算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#冒泡排序（稳定的排序）"><span class="toc-text">冒泡排序（稳定的排序）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#需要注意的是：如果在某次遍历中没有发生交换，那么就不必进行下次遍历了，因为序列已经有序了"><span class="toc-text">需要注意的是：如果在某次遍历中没有发生交换，那么就不必进行下次遍历了，因为序列已经有序了</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单选择排序（不稳定排序）"><span class="toc-text">简单选择排序（不稳定排序）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#直接插入排序"><span class="toc-text">直接插入排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#归并排序"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速排序"><span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#堆排序"><span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用算法性能分析"><span class="toc-text">常用算法性能分析</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#衡量一个算法的优劣："><span class="toc-text">衡量一个算法的优劣：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查找算法"><span class="toc-text">查找算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、顺序查找"><span class="toc-text">一、顺序查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、二分查找"><span class="toc-text">二、二分查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、二叉树查找"><span class="toc-text">三、二叉树查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、分块查找"><span class="toc-text">四、分块查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、哈希查找"><span class="toc-text">五、哈希查找</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序算法"><span class="toc-text">排序算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#冒泡排序（稳定的排序）"><span class="toc-text">冒泡排序（稳定的排序）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#需要注意的是：如果在某次遍历中没有发生交换，那么就不必进行下次遍历了，因为序列已经有序了"><span class="toc-text">需要注意的是：如果在某次遍历中没有发生交换，那么就不必进行下次遍历了，因为序列已经有序了</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单选择排序（不稳定排序）"><span class="toc-text">简单选择排序（不稳定排序）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#直接插入排序"><span class="toc-text">直接插入排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#归并排序"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速排序"><span class="toc-text">快速排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#java实现"><span class="toc-text">java实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#javascript实现"><span class="toc-text">javascript实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#堆排序"><span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用算法性能分析"><span class="toc-text">常用算法性能分析</span></a>
                 </div>
             </div>
         </div>
@@ -509,7 +533,7 @@ static int quickSortPartition(int[] list, int first, int last) {
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Annie 2017
+                    Copyright &copy; Annie 2018
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
                     <br>
