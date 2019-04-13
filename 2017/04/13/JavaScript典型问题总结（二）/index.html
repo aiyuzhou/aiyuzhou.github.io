@@ -294,6 +294,34 @@ test(); //undefined 2
 </li>
 <li><p>函数提升：将整个函数代码块提升到文件作用域或者文件最开始的位置</p>
 </li>
+<li><p>这里需要注意的是：如果以字面量的方式定义声明函数，若你要执行foo()函数，则会报错，此种函数声明相当于声明了一个变量，所以变量提升后只是提升了变量声明，并没有赋值给它一个函数。</p>
+<pre><code>function test(){
+    console.log(a);
+    console.log(foo());
+
+    var a = 1;
+    var foo = function(){
+        return 2;
+    }
+}
+test();
+//undefined
+// Uncaught TypeError: foo is not a function
+</code></pre></li>
+<li><p>可修改为以下方式：</p>
+<pre><code>function test(){
+    console.log(a);
+    console.log(foo);
+
+    var a = 1;
+    var foo = function(){
+        return 2;
+    }
+}
+test();
+//undefined
+//undefined
+</code></pre></li>
 </ul>
 <h3 id="关于JavaScript中this的工作方式"><a href="#关于JavaScript中this的工作方式" class="headerlink" title="关于JavaScript中this的工作方式"></a>关于JavaScript中this的工作方式</h3><p>详见：JavaScript典型问题（一）中的<code>JavaScript中的this</code>部分</p>
 <p>一、以下代码输出结果：</p>
@@ -499,6 +527,7 @@ var b = new obj;
 </li>
 </ul>
 <ul>
+<li>建立TCP连接</li>
 <li>浏览器给web服务器发送一个http请求</li>
 <li>请求网址服务器的永久重定向</li>
 <li>浏览器跟踪重定向地址</li>
@@ -646,7 +675,7 @@ var b = new obj;
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Annie 2018
+                    Copyright &copy; Annie 2019
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
                     <br>

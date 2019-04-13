@@ -186,7 +186,10 @@
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
                 <h3 id="一、数组的sort方法"><a href="#一、数组的sort方法" class="headerlink" title="一、数组的sort方法"></a>一、数组的sort方法</h3><p>默认情况下，如果调用该方法时没有使用参数，将按字母顺序对数组中的元素进行排序，说得更精确点，是按照字符编码的顺序进行排序。要实现这一点，首先应把数组的元素都转换成字符串（如有必要），以便进行比较。</p>
 <p>比较好的习惯是，调用sort时，自己写compare函数（也就是sortby参数），不然可能会造成混淆。</p>
-<p>易错一：对概念不清楚，不知道默认情况下是怎么排序的，可能会出现想当然的情况，比如印象中默认是</p>
+<p>易错：对概念不清楚，不知道默认情况下是怎么排序的，可能会出现想当然的情况，以为是按照从小到大的顺序</p>
+<pre><code>[1,12,112].sort()
+//[1, 112, 12]
+</code></pre><p>compare函数有两个被比较的参数a,b，如果compare(a, b) 小于 0 ，那么 a 会被排列到 b 之前；如果 compare(a, b) 等于 0 ， a 和 b 的相对位置不变；如果 compareFunction(a, b) 大于 0 ， b 会被排列到 a 之前。</p>
 
                 <hr>
                 
@@ -316,7 +319,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Annie 2018
+                    Copyright &copy; Annie 2019
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
                     <br>

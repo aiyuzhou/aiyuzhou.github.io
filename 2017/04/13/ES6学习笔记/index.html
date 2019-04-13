@@ -194,8 +194,17 @@ b //1
 </code></pre><h4 id="二、let适合用在for循环的计数器中"><a href="#二、let适合用在for循环的计数器中" class="headerlink" title="二、let适合用在for循环的计数器中"></a>二、let适合用在for循环的计数器中</h4><pre><code>for(let i = 0; i &lt; 10; i++){}
 console.log(i);
 // i is not defined
-</code></pre><p>###<br>    //用var声明，最后输出的是10<br>    var a = [];<br>    for (var i = 0; i &lt; 10; i++) {<br>      a[i] = function () {<br>        console.log(i);<br>      };<br>    }<br>    a<a href="">6</a>; // 10</p>
-<pre><code>//用let声明，最后输出的是6
+</code></pre><p>###</p>
+<pre><code>//用var声明，最后输出的是10
+var a = [];
+for (var i = 0; i &lt; 10; i++) {
+  a[i] = function () {
+    console.log(i);
+  };
+}
+a[6](); // 10
+
+//用let声明，最后输出的是6
 var a = [];
 for (let i = 0; i &lt; 10; i++) {
   a[i] = function () {
@@ -432,7 +441,7 @@ a = [&quot;world&quot;];//报错
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Annie 2018
+                    Copyright &copy; Annie 2019
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
                     <br>
